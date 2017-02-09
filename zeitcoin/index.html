@@ -2,69 +2,110 @@
 <html>
 <head>
 	<!--
-	GitHub Repository: https://github.com/pointbiz/bitaddress.org
+	Donation Address: 1NiNja1bUmhSoTXozBRBEtR8LeF9TGbZBN
+
+	Notice of Copyrights and Licenses:
+	***********************************
+	The bitaddress.org project, software and embedded resources are copyright bitaddress.org (pointbiz).
+	The bitaddress.org name and logo are not part of the open source license.
+
+	Portions of the all-in-one HTML document contain JavaScript codes that are the copyrights of others.
+	The individual copyrights are included throughout the document along with their licenses.
+	Included JavaScript libraries are separated with HTML script tags.
+
+	Summary of JavaScript functions with a redistributable license:
+	JavaScript function		License
+	*******************		***************
+	Array.prototype.map		Public Domain
+	window.Crypto			BSD License
+	window.SecureRandom		BSD License
+	window.EllipticCurve		BSD License
+	window.BigInteger		BSD License
+	window.QRCode			MIT License
+	window.Bitcoin			MIT License
+	window.Crypto_scrypt		MIT License
+
+	The bitaddress.org software is available under The MIT License (MIT)
+	Copyright (c) 2011-2013 bitaddress.org (pointbiz)
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+	associated documentation files (the "Software"), to deal in the Software without restriction, including
+	without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+	sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject
+	to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all copies or substantial
+	portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+	LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+	IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+	WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	GitHub Repository: /web/20141031203701/https://github.com/pointbiz/bitaddress.org
 	-->
 
-	<title>Zeitcoin Paperwallet</title>
+	<title>Zeitcoin (ZEIT) Paper Wallet Generator</title>
 	<meta charset="utf-8">
 	<meta name="description" content="Open Source JavaScript Client-Side Zeitcoin Wallet Generator">
-	<meta name="keywords" content="zeit,Zeitcoin,paper wallet,cryptocurrency,altcoin,finance">
+	<meta name="keywords" content="ZEIT,Zeitcoin,paper wallet,cryptocurrency,altcoin,finance">
 
 	<script type="text/javascript">
 // Array.prototype.map function is in the public domain.
-// Production steps of ECMA-262, Edition 5, 15.4.4.19  
-// Reference: http://es5.github.com/#x15.4.4.19  
+// Production steps of ECMA-262, Edition 5, 15.4.4.19
+// Reference: /web/20141031203701/http://es5.github.com/#x15.4.4.19
 if (!Array.prototype.map) {
 	Array.prototype.map = function (callback, thisArg) {
 		var T, A, k;
 		if (this == null) {
 			throw new TypeError(" this is null or not defined");
 		}
-		// 1. Let O be the result of calling ToObject passing the |this| value as the argument.  
+		// 1. Let O be the result of calling ToObject passing the |this| value as the argument.
 		var O = Object(this);
-		// 2. Let lenValue be the result of calling the Get internal method of O with the argument "length".  
-		// 3. Let len be ToUint32(lenValue).  
+		// 2. Let lenValue be the result of calling the Get internal method of O with the argument "length".
+		// 3. Let len be ToUint32(lenValue).
 		var len = O.length >>> 0;
-		// 4. If IsCallable(callback) is false, throw a TypeError exception.  
-		// See: http://es5.github.com/#x9.11  
+		// 4. If IsCallable(callback) is false, throw a TypeError exception.
+		// See: /web/20141031203701/http://es5.github.com/#x9.11
 		if ({}.toString.call(callback) != "[object Function]") {
 			throw new TypeError(callback + " is not a function");
 		}
-		// 5. If thisArg was supplied, let T be thisArg; else let T be undefined.  
+		// 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
 		if (thisArg) {
 			T = thisArg;
 		}
-		// 6. Let A be a new array created as if by the expression new Array(len) where Array is  
-		// the standard built-in constructor with that name and len is the value of len.  
+		// 6. Let A be a new array created as if by the expression new Array(len) where Array is
+		// the standard built-in constructor with that name and len is the value of len.
 		A = new Array(len);
-		// 7. Let k be 0  
+		// 7. Let k be 0
 		k = 0;
-		// 8. Repeat, while k < len  
+		// 8. Repeat, while k < len
 		while (k < len) {
 			var kValue, mappedValue;
-			// a. Let Pk be ToString(k).  
-			//   This is implicit for LHS operands of the in operator  
-			// b. Let kPresent be the result of calling the HasProperty internal method of O with argument Pk.  
-			//   This step can be combined with c  
-			// c. If kPresent is true, then  
+			// a. Let Pk be ToString(k).
+			//   This is implicit for LHS operands of the in operator
+			// b. Let kPresent be the result of calling the HasProperty internal method of O with argument Pk.
+			//   This step can be combined with c
+			// c. If kPresent is true, then
 			if (k in O) {
-				// i. Let kValue be the result of calling the Get internal method of O with argument Pk.  
+				// i. Let kValue be the result of calling the Get internal method of O with argument Pk.
 				kValue = O[k];
-				// ii. Let mappedValue be the result of calling the Call internal method of callback  
-				// with T as the this value and argument list containing kValue, k, and O.  
+				// ii. Let mappedValue be the result of calling the Call internal method of callback
+				// with T as the this value and argument list containing kValue, k, and O.
 				mappedValue = callback.call(T, kValue, k, O);
-				// iii. Call the DefineOwnProperty internal method of A with arguments  
-				// Pk, Property Descriptor {Value: mappedValue, Writable: true, Enumerable: true, Configurable: true},  
-				// and false.  
-				// In browsers that support Object.defineProperty, use the following:  
-				// Object.defineProperty(A, Pk, { value: mappedValue, writable: true, enumerable: true, configurable: true });  
-				// For best browser support, use the following:  
+				// iii. Call the DefineOwnProperty internal method of A with arguments
+				// Pk, Property Descriptor {Value: mappedValue, Writable: true, Enumerable: true, Configurable: true},
+				// and false.
+				// In browsers that support Object.defineProperty, use the following:
+				// Object.defineProperty(A, Pk, { value: mappedValue, writable: true, enumerable: true, configurable: true });
+				// For best browser support, use the following:
 				A[k] = mappedValue;
 			}
-			// d. Increase k by 1.  
+			// d. Increase k by 1.
 			k++;
 		}
-		// 9. return A  
+		// 9. return A
 		return A;
 	};
 }
@@ -72,9 +113,9 @@ if (!Array.prototype.map) {
 	<script type="text/javascript">
 /*!
 * Crypto-JS v2.5.4	Crypto.js
-* http://code.google.com/p/crypto-js/
+* /web/20141031203701/http://code.google.com/p/crypto-js/
 * Copyright (c) 2009-2013, Jeff Mott. All rights reserved.
-* http://code.google.com/p/crypto-js/wiki/License
+* /web/20141031203701/http://code.google.com/p/crypto-js/wiki/License
 */
 if (typeof Crypto == "undefined" || !Crypto.util) {
 	(function () {
@@ -218,14 +259,14 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 		};
 
 	})();
-}	
+}
 	</script>
 	<script type="text/javascript">
 /*!
 * Crypto-JS v2.5.4	SHA256.js
-* http://code.google.com/p/crypto-js/
+* /web/20141031203701/http://code.google.com/p/crypto-js/
 * Copyright (c) 2009-2013, Jeff Mott. All rights reserved.
-* http://code.google.com/p/crypto-js/wiki/License
+* /web/20141031203701/http://code.google.com/p/crypto-js/wiki/License
 */
 (function () {
 
@@ -355,14 +396,14 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	SHA256._digestsize = 32;
 
-})();	
+})();
 	</script>
 	<script type="text/javascript">
 /*!
 * Crypto-JS v2.5.4	PBKDF2.js
-* http://code.google.com/p/crypto-js/
+* /web/20141031203701/http://code.google.com/p/crypto-js/
 * Copyright (c) 2009-2013, Jeff Mott. All rights reserved.
-* http://code.google.com/p/crypto-js/wiki/License
+* /web/20141031203701/http://code.google.com/p/crypto-js/wiki/License
 */
 (function () {
 
@@ -411,14 +452,14 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	};
 
-})(); 
+})();
 	</script>
 	<script type="text/javascript">
 /*!
 * Crypto-JS v2.5.4	HMAC.js
-* http://code.google.com/p/crypto-js/
+* /web/20141031203701/http://code.google.com/p/crypto-js/
 * Copyright (c) 2009-2013, Jeff Mott. All rights reserved.
-* http://code.google.com/p/crypto-js/wiki/License
+* /web/20141031203701/http://code.google.com/p/crypto-js/wiki/License
 */
 (function () {
 
@@ -461,9 +502,9 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	<script type="text/javascript">
 /*!
 * Crypto-JS v2.5.4	AES.js
-* http://code.google.com/p/crypto-js/
+* /web/20141031203701/http://code.google.com/p/crypto-js/
 * Copyright (c) 2009-2013, Jeff Mott. All rights reserved.
-* http://code.google.com/p/crypto-js/wiki/License
+* /web/20141031203701/http://code.google.com/p/crypto-js/wiki/License
 */
 (function () {
 
@@ -563,7 +604,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 			// Allow mode to override options
 			if (mode.fixOptions) mode.fixOptions(options);
 
-			var 
+			var
 
 			// Convert to bytes if message is a string
 		m = (
@@ -604,7 +645,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 			// Allow mode to override options
 			if (mode.fixOptions) mode.fixOptions(options);
 
-			var 
+			var
 
 			// Convert to bytes if ciphertext is a string
 		c = (
@@ -1046,9 +1087,9 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	/**
 	* Electronic Code Book mode.
-	* 
+	*
 	* ECB applies the cipher directly against each block of the input.
-	* 
+	*
 	* ECB does not require an initialization vector.
 	*/
 	var ECB = C_mode.ECB = function () {
@@ -1083,7 +1124,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	/**
 	* Cipher block chaining
-	* 
+	*
 	* The first block is XORed with the IV. Subsequent blocks are XOR with the
 	* previous cipher output.
 	*/
@@ -1137,11 +1178,11 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	/**
 	* Cipher feed back
-	* 
+	*
 	* The cipher output is XORed with the plain text to produce the cipher output,
 	* which is then fed back into the cipher to produce a bit pattern to XOR the
 	* next block with.
-	* 
+	*
 	* This is a stream cipher mode and does not require padding.
 	*/
 	var CFB = C_mode.CFB = function () {
@@ -1189,10 +1230,10 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	/**
 	* Output feed back
-	* 
+	*
 	* The cipher repeatedly encrypts its own output. The output is XORed with the
 	* plain text to produce the cipher text.
-	* 
+	*
 	* This is a stream cipher mode and does not require padding.
 	*/
 	var OFB = C_mode.OFB = function () {
@@ -1282,16 +1323,16 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	<script type="text/javascript">
 /*!
 * Crypto-JS v2.0.0  RIPEMD-160
-* http://code.google.com/p/crypto-js/
+* /web/20141031203701/http://code.google.com/p/crypto-js/
 * Copyright (c) 2009, Jeff Mott. All rights reserved.
-* http://code.google.com/p/crypto-js/wiki/License
+* /web/20141031203701/http://code.google.com/p/crypto-js/wiki/License
 *
 * A JavaScript implementation of the RIPEMD-160 Algorithm
 * Version 2.2 Copyright Jeremy Lin, Paul Johnston 2000 - 2009.
 * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
 * Distributed under the BSD License
-* See http://pajhome.org.uk/crypt/md5 for details.
-* Also http://www.ocf.berkeley.edu/~jjlin/jsotp/
+* See /web/20141031203701/http://pajhome.org.uk/crypt/md5 for details.
+* Also /web/20141031203701/http://www.ocf.berkeley.edu/~jjlin/jsotp/
 * Ported to Crypto-JS by Stefan Thomas.
 */
 
@@ -1448,13 +1489,13 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	<script type="text/javascript">
 /*!
 * Random number generator with ArcFour PRNG
-* 
+*
 * NOTE: For best results, put code like
 * <body onclick='SecureRandom.seedTime();' onkeypress='SecureRandom.seedTime();'>
 * in your main HTML document.
-* 
+*
 * Copyright Tom Wu, bitaddress.org  BSD License.
-* http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
+* /web/20141031203701/http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
 */
 (function () {
 
@@ -1634,14 +1675,14 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 })();
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/faa10f0f6a1fff0b9a99fffb9bc30cee33b17212/src/ecdsa.js
+///web/20141031203701/https://raw.github.com/bitcoinjs/bitcoinjs-lib/faa10f0f6a1fff0b9a99fffb9bc30cee33b17212/src/ecdsa.js
 /*!
 * Basic Javascript Elliptic Curve implementation
 * Ported loosely from BouncyCastle's Java EC code
 * Only Fp curves implemented for now
-* 
+*
 * Copyright Tom Wu, bitaddress.org  BSD License.
-* http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
+* /web/20141031203701/http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
 */
 (function () {
 
@@ -1700,8 +1741,8 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	/**
 	* return a sqrt root - the routine verifies that the calculation
 	* returns the right value - if none exists it returns null.
-	* 
-	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
+	*
+	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (/web/20141031203701/http://www.bouncycastle.org)
 	* Ported to JavaScript by bitaddress.org
 	*/
 	ec.FieldElementFp.prototype.sqrt = function () {
@@ -1751,7 +1792,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	};
 
 	/*
-	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
+	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (/web/20141031203701/http://www.bouncycastle.org)
 	* Ported to JavaScript by bitaddress.org
 	*/
 	ec.FieldElementFp.fastLucasSequence = function (p, P, Q, k) {
@@ -1989,7 +2030,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 		var len = 32; // integerToBytes will zero pad if integer is less than 32 bytes. 32 bytes length is required by the Bitcoin protocol.
 		var enc = ec.integerToBytes(x, len);
 
-		// when compressed prepend byte depending if y point is even or odd 
+		// when compressed prepend byte depending if y point is even or odd
 		if (compressed) {
 			if (y.isEven()) {
 				enc.unshift(0x02);
@@ -2230,7 +2271,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	};
 
 	/*
-	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
+	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (/web/20141031203701/http://www.bouncycastle.org)
 	* Ported to JavaScript by bitaddress.org
 	*
 	* Number yTilde
@@ -2307,11 +2348,11 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	<script type="text/javascript">
 /*!
 * Basic JavaScript BN library - subset useful for RSA encryption. v1.3
-* 
+*
 * Copyright (c) 2005  Tom Wu
 * All Rights Reserved.
 * BSD License
-* http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
+* /web/20141031203701/http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
 *
 * Copyright Stephan Thomas
 * Copyright bitaddress.org
@@ -3359,7 +3400,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 
 	// Copyright Stephan Thomas (start) --- //
-	// https://raw.github.com/bitcoinjs/bitcoinjs-lib/07f9d55ccb6abd962efb6befdd37671f85ea4ff9/src/util.js
+	// /web/20141031203701/https://raw.github.com/bitcoinjs/bitcoinjs-lib/07f9d55ccb6abd962efb6befdd37671f85ea4ff9/src/util.js
 	// BigInteger monkey patching
 	BigInteger.valueOf = nbv;
 
@@ -3583,14 +3624,14 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 //
 // Copyright (c) 2009 Kazuhiko Arase
 //
-// URL: http://www.d-project.com/
+// URL: /web/20141031203701/http://www.d-project.com/
 //
 // Licensed under the MIT license:
-//   http://www.opensource.org/licenses/mit-license.php
+//   /web/20141031203701/http://www.opensource.org/licenses/mit-license.php
 //
-// The word "QR Code" is registered trademark of 
+// The word "QR Code" is registered trademark of
 // DENSO WAVE INCORPORATED
-//   http://www.denso-wave.com/qrcode/faqpatent-e.html
+//   /web/20141031203701/http://www.denso-wave.com/qrcode/faqpatent-e.html
 //
 //---------------------------------------------------------------------
 
@@ -3802,7 +3843,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 			var data = (this.errorCorrectLevel << 3) | maskPattern;
 			var bits = QRCode.Util.getBCHTypeInfo(data);
 
-			// vertical		
+			// vertical
 			for (var i = 0; i < 15; i++) {
 
 				var mod = (!test && ((bits >> i) & 1) == 1);
@@ -4485,7 +4526,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	[2, 35, 17],
 	[2, 35, 13],
 
-	// 4		
+	// 4
 	[1, 100, 80],
 	[2, 50, 32],
 	[2, 50, 24],
@@ -4503,7 +4544,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	[4, 43, 19],
 	[4, 43, 15],
 
-	// 7		
+	// 7
 	[2, 98, 78],
 	[4, 49, 31],
 	[2, 32, 14, 4, 33, 15],
@@ -4521,7 +4562,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	[4, 36, 16, 4, 37, 17],
 	[4, 36, 12, 4, 37, 13],
 
-	// 10		
+	// 10
 	[2, 86, 68, 2, 87, 69],
 	[4, 69, 43, 1, 70, 44],
 	[6, 43, 19, 2, 44, 20],
@@ -4624,7 +4665,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/1a7fc9d063f864058809d06ef4542af40be3558f/src/bitcoin.js
+///web/20141031203701/https://raw.github.com/bitcoinjs/bitcoinjs-lib/1a7fc9d063f864058809d06ef4542af40be3558f/src/bitcoin.js
 (function (exports) {
 	var Bitcoin = exports;
 })(
@@ -4632,7 +4673,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 );
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/c952aaeb3ee472e3776655b8ea07299ebed702c7/src/base58.js
+///web/20141031203701/https://raw.github.com/bitcoinjs/bitcoinjs-lib/c952aaeb3ee472e3776655b8ea07299ebed702c7/src/base58.js
 (function (Bitcoin) {
 	Bitcoin.Base58 = {
 		alphabet: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz",
@@ -4706,7 +4747,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 );
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/09e8c6e184d6501a0c2c59d73ca64db5c0d3eb95/src/address.js
+///web/20141031203701/https://raw.github.com/bitcoinjs/bitcoinjs-lib/09e8c6e184d6501a0c2c59d73ca64db5c0d3eb95/src/address.js
 Bitcoin.Address = function (bytes) {
 	if ("string" == typeof bytes) {
 		bytes = Bitcoin.Address.decodeString(bytes);
@@ -4762,7 +4803,7 @@ Bitcoin.Address.decodeString = function (string) {
 };
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/e90780d3d3b8fc0d027d2bcb38b80479902f223e/src/ecdsa.js
+///web/20141031203701/https://raw.github.com/bitcoinjs/bitcoinjs-lib/e90780d3d3b8fc0d027d2bcb38b80479902f223e/src/ecdsa.js
 Bitcoin.ECDSA = (function () {
 	var ecparams = EllipticCurve.getSECCurveByName("secp256k1");
 	var rng = new SecureRandom();
@@ -4900,7 +4941,7 @@ Bitcoin.ECDSA = (function () {
 		* Parses a byte array containing a DER-encoded signature.
 		*
 		* This function will return an object of the form:
-		* 
+		*
 		* {
 		*   r: BigInteger,
 		*   s: BigInteger
@@ -4957,7 +4998,7 @@ Bitcoin.ECDSA = (function () {
 		* See SEC 1: Elliptic Curve Cryptography, section 4.1.6, "Public
 		* Key Recovery Operation".
 		*
-		* http://www.secg.org/download/aid-780/sec1-v2.pdf
+		* /web/20141031203701/http://www.secg.org/download/aid-780/sec1-v2.pdf
 		*/
 		recoverPubKey: function (r, s, hash, i) {
 			// The recovery parameter i has two bits.
@@ -5047,7 +5088,7 @@ Bitcoin.ECDSA = (function () {
 })();
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/pointbiz/bitcoinjs-lib/9b2f94a028a7bc9bed94e0722563e9ff1d8e8db8/src/eckey.js
+///web/20141031203701/https://raw.github.com/pointbiz/bitcoinjs-lib/9b2f94a028a7bc9bed94e0722563e9ff1d8e8db8/src/eckey.js
 Bitcoin.ECKey = (function () {
 	var ECDSA = Bitcoin.ECDSA;
 	var ecparams = EllipticCurve.getSECCurveByName("secp256k1");
@@ -5078,7 +5119,7 @@ Bitcoin.ECKey = (function () {
 			} else if (ECKey.isBase64Format(input)) {
 				bytes = Crypto.util.base64ToBytes(input);
 			}
-			
+
 			if (ECKey.isBase6Format(input)) {
 				this.priv = new BigInteger(input, 6);
 			} else if (bytes == null || bytes.length != 32) {
@@ -5092,7 +5133,7 @@ Bitcoin.ECKey = (function () {
 		this.compressed = (this.compressed == undefined) ? !!ECKey.compressByDefault : this.compressed;
 	};
 
-	ECKey.privateKeyPrefix = 179; // mainnet 0x80    testnet 0xEF  jrm changed for zeit
+	ECKey.privateKeyPrefix = 179; // mainnet 0x80    testnet 0xEF
 
 	/**
 	* Whether public keys should be returned compressed by default.
@@ -5178,7 +5219,7 @@ Bitcoin.ECKey = (function () {
 		return this;
 	};
 
-	// Sipa Private Key Wallet Import Format 
+	// Sipa Private Key Wallet Import Format
 	ECKey.prototype.getBitcoinWalletImportFormat = function () {
 		var bytes = this.getBitcoinPrivateKeyByteArray();
 		bytes.unshift(ECKey.privateKeyPrefix); // prepend 0x80 byte
@@ -5189,12 +5230,12 @@ Bitcoin.ECKey = (function () {
 		return privWif;
 	};
 
-	// Private Key Hex Format 
+	// Private Key Hex Format
 	ECKey.prototype.getBitcoinHexFormat = function () {
 		return Crypto.util.bytesToHex(this.getBitcoinPrivateKeyByteArray()).toString().toUpperCase();
 	};
 
-	// Private Key Base64 Format 
+	// Private Key Base64 Format
 	ECKey.prototype.getBitcoinBase64Format = function () {
 		return Crypto.util.bytesToBase64(this.getBitcoinPrivateKeyByteArray());
 	};
@@ -5202,7 +5243,7 @@ Bitcoin.ECKey = (function () {
 	ECKey.prototype.getBitcoinPrivateKeyByteArray = function () {
 		// Get a copy of private key as a byte array
 		var bytes = this.priv.toByteArrayUnsigned();
-		// zero pad if private key is less than 32 bytes 
+		// zero pad if private key is less than 32 bytes
 		while (bytes.length < 32) bytes.unshift(0x00);
 		return bytes;
 	};
@@ -5288,7 +5329,7 @@ Bitcoin.ECKey = (function () {
 	ECKey.isCompressedWalletImportFormat = function (key) {
 		key = key.toString();
 		return (ECKey.privateKeyPrefix == 179) ?
-							(/^U[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{51}$/.test(key)) :
+							(/^T[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{51}$/.test(key)) :
 							(/^c[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{51}$/.test(key));
 	};
 
@@ -5319,7 +5360,7 @@ Bitcoin.ECKey = (function () {
 })();
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/09e8c6e184d6501a0c2c59d73ca64db5c0d3eb95/src/util.js
+///web/20141031203701/https://raw.github.com/bitcoinjs/bitcoinjs-lib/09e8c6e184d6501a0c2c59d73ca64db5c0d3eb95/src/util.js
 // Bitcoin utility functions
 Bitcoin.Util = {
 	/**
@@ -5428,17 +5469,17 @@ Bitcoin.Util = {
 	<script type="text/javascript">
 /*
 * Copyright (c) 2010-2011 Intalio Pte, All Rights Reserved
-* 
+*
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -5447,7 +5488,7 @@ Bitcoin.Util = {
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */
-// https://github.com/cheongwy/node-scrypt-js
+// /web/20141031203701/https://github.com/cheongwy/node-scrypt-js
 (function () {
 
 	var MAX_VALUE = 2147483647;
@@ -5458,7 +5499,7 @@ Bitcoin.Util = {
 	* N = Cpu cost
 	* r = Memory cost
 	* p = parallelization cost
-	* 
+	*
 	*/
 	window.Crypto_scrypt = function (passwd, salt, N, r, p, dkLen, callback) {
 		if (N == 0 || (N & (N - 1)) != 0) throw Error("N must be > 0 and a power of 2");
@@ -5771,16 +5812,16 @@ body { font-family: Arial; }
 
 #main { position: relative; text-align: center; margin: 0px auto; width: 1005px; }
 #logo { width: 100px; height: 100px; }
-		
+
 #paperarea { min-height: 120px; display: none; }
 #paperarea .keyarea { border: 2px solid green; border-top: 0; }
 #paperarea .keyarea.art { display: block; height: auto; border: 0; font-family: Ubuntu, Arial; padding: 0; margin: 0; }
 #paperarea .artwallet .papersvg { width: 486px; height: 261px; border: 0; margin: 0; padding: 0; left: 0; }
-#paperarea .artwallet .qrcode_public { top: 60px; left: 30px; z-index: 100; margin: 0; float: none; display: block; position: absolute; background-color: #FFFFFF; 
-		                                padding: 5px 5px 2px 5px; } 
-#paperarea .artwallet .qrcode_private { top: 80px; left: 388px; z-index: 100; margin: 0; float: none; display: block; position: absolute; background-color: #FFFFFF; 
+#paperarea .artwallet .qrcode_public { top: 60px; left: 30px; z-index: 100; margin: 0; float: none; display: block; position: absolute; background-color: #FFFFFF;
 		                                padding: 5px 5px 2px 5px; }
-#paperarea .artwallet .btcaddress  
+#paperarea .artwallet .qrcode_private { top: 80px; left: 388px; z-index: 100; margin: 0; float: none; display: block; position: absolute; background-color: #FFFFFF;
+		                                padding: 5px 5px 2px 5px; }
+#paperarea .artwallet .btcaddress
 {
 	position: absolute; top: 240px; left: 146px; z-index: 100; font-size: 10px; background-color: transparent;
 	font-weight:bold; color: #000000; margin: 0;
@@ -5789,11 +5830,11 @@ body { font-family: Arial; }
 		-ms-transform-origin:top left;     -ms-transform:rotate(-90deg);
 		-o-transform-origin:top left;      -o-transform:rotate(-90deg);
 		transform-origin:top left;         transform:rotate(-90deg);
-} 
-#paperarea .artwallet .btcprivwif  
+}
+#paperarea .artwallet .btcprivwif
 {
 	position: absolute; top: 255px; left: 354px; z-index: 100; font-size: 7px; background-color: transparent;
-	font-weight:bold; color: #000000; margin: 0;  
+	font-weight:bold; color: #000000; margin: 0;
 		-webkit-transform-origin:top left; -webkit-transform:rotate(-90deg);
 		-moz-transform-origin:top left;    -moz-transform:rotate(-90deg);
 		-ms-transform-origin:top left;     -ms-transform:rotate(-90deg);
@@ -5803,7 +5844,7 @@ body { font-family: Arial; }
 #paperarea .artwallet .btcencryptedkey
 {
 	position: absolute; top: 174px; left: 350px; z-index: 100; font-size: 8px; background-color: transparent;
-	font-weight:bold; color: #000000; margin: 0;  
+	font-weight:bold; color: #000000; margin: 0;
 		-webkit-transform-origin:top left; -webkit-transform:rotate(-90deg);
 		-moz-transform-origin:top left;    -moz-transform:rotate(-90deg);
 		-ms-transform-origin:top left;     -ms-transform:rotate(-90deg);
@@ -5819,10 +5860,10 @@ body { font-family: Arial; }
 #detailarea .notes { text-align: left; font-size: 80%; padding: 0 0 20px 0; }
 #detailarea .pubqr .item .label { text-decoration: none; }
 #detailarea .pubqr .item { float: left; margin: 10px 0; position: relative; }
-#detailarea .pubqr .item.right { float: right; position: relative; top: 0; } 
+#detailarea .pubqr .item.right { float: right; position: relative; top: 0; }
 #detailarea .privqr .item .label { text-decoration: none; }
 #detailarea .privqr .item { float: left; margin: 0; position: relative; }
-#detailarea .privqr .item.right { float: right; position: relative; } 
+#detailarea .privqr .item.right { float: right; position: relative; }
 #detailarea .item { margin: 10px 0; position: relative; font-size: 90%; padding: 1px 0; }
 #detailarea .item.clear { clear: both; padding-top: 10px; }
 #detailarea .label { display: block; font-weight: bold; }
@@ -5832,7 +5873,7 @@ body { font-family: Arial; }
 #detailarea #detailqrcodeprivate { position: relative; float: left; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
 #detailarea #detailqrcodeprivatecomp { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
 #detailpubkey { width: 590px; }
-#detailbip38commands { display: none; padding-top: 5px; }	
+#detailbip38commands { display: none; padding-top: 5px; }
 #vanityarea { text-align: left; }
 #vanityarea .label { text-decoration: underline; }
 #vanityarea .output { font-family: monospace; font-size: 1.25em; display: block; }
@@ -5842,7 +5883,7 @@ body { font-family: Arial; }
 #vanitystep2area { border-top: 2px solid green; display: block; padding: 15px; }
 #vanitystep2inputs { padding: 0 15px 10px 15px; }
 #vanitycalc { margin-top: 5px; }
-		
+
 .englishjson { text-align: center; padding: 40px 0 20px 0; }
 .unittests { text-align: center; }
 .unittests div { width: 894px; font-family: monospace; text-align: left; margin: auto; padding: 5px; border: 1px solid black; }
@@ -5851,13 +5892,13 @@ body { font-family: Arial; }
 #busyblock.busy { display: block; }
 .hide { display: none; }
 .show { display: block; }
-	
+
 /* IE8 */
 .qrcodetable { border-width: 0px; border-style: none; border-color: #0000ff; border-collapse: collapse; }
 .qrcodetddark { border-width: 0px; border-style: none; border-color: #0000ff; border-collapse: collapse; padding: 0; margin: 0; width: 2px; height: 2px; background-color: #000000; }
 .qrcodetdlight { border-width: 0px; border-style: none; border-color: #0000ff; border-collapse: collapse; padding: 0; margin: 0; width: 2px; height: 2px; background-color: #ffffff; }
-		
-@media screen 	
+
+@media screen
 {
 	#tagline { margin: 0 0 15px 0; font-style: italic; }
 	.menu { text-align: left; }
@@ -5868,7 +5909,7 @@ body { font-family: Arial; }
 	.menu .tab.selected:hover { color: #000; }
 	.pagebreak { height: 50px; }
 	.commands { border-bottom: 2px solid green;  padding: 10px 2px; margin-bottom: 0; }
-	.commands .row { padding: 0 0; text-align: left; } 
+	.commands .row { padding: 0 0; text-align: left; }
 	.commands .row.extra { padding-top: 6px; }
 	.commands span { padding: 0 10px; }
 	.commands span.print { float: right; }
@@ -5890,9 +5931,9 @@ body { font-family: Arial; }
 	#detailprivkey { width: 250px; }
 	#detailprivkeypassphrase { width: 250px; }
 	.paper .commands { border: 2px solid green; }
-	#bulkstartindex, #paperlimit, #paperlimitperpage { width: 35px; } 
+	#bulkstartindex, #paperlimit, #paperlimitperpage { width: 35px; }
 	#bulklimit { width: 45px; }
-			
+
 	.footer { font-size: 90%; clear: both; width: 750px; padding: 10px 0 10px 0; margin: 50px auto auto auto; }
 	.footer div span.item { padding: 10px; }
 	.footer .authorbtc { float: left; width: 470px; }
@@ -5922,36 +5963,22 @@ body { font-family: Arial; }
 	.faq { display: none; }
 }
 	</style>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-49603816-1', 'pndaddress.org');
-  ga('require', 'displayfeatures');
-  ga('send', 'pageview');
-  ga('create', 'UA-51736476-1', 'pndaddress.org');
-  ga('require', 'displayfeatures');
-  ga('send', 'pageview');
-
-</script>
 </head>
 <body onclick="SecureRandom.seedTime();" onmousemove="ninja.seeder.seed(event);">
+
 	<div id="busyblock"></div>
 	<div id="main">
 		<div id="culturemenu">
-			<span><a href="?culture=en" id="cultureen" class="selected">English</a></span> | 
-			<span><a href="?culture=es" id="culturees">Español</a></span> | 
-			<span><a href="?culture=fr" id="culturefr">Français</a></span> | 
-			<span><a href="?culture=el" id="cultureel">ελληνικά</a></span> | 
-			<span><a href="?culture=it" id="cultureit">italiano</a></span> | 
-			<span><a href="?culture=de" id="culturede">Deutsch</a></span> | 
+			<span><a href="?culture=en" id="cultureen" class="selected">English</a></span> |
+			<span><a href="?culture=es" id="culturees">Español</a></span> |
+			<span><a href="?culture=fr" id="culturefr">Français</a></span> |
+			<span><a href="?culture=el" id="cultureel">ελληνικά</a></span> |
+			<span><a href="?culture=it" id="cultureit">italiano</a></span> |
+			<span><a href="?culture=de" id="culturede">Deutsch</a></span> |
 			<span><a href="?culture=cs" id="culturecs">Česky</a></span>
-		</div>
-		<!--<img alt="bitaddress.org" title="bitaddress.org" id="logo" src="./zeit_logo.png" />-->
-		<img alt="bitaddress.org" title="bitaddress.org" id="logo" src="./zeit_logo.png" />
-		<div id="tagline">Open Source JavaScript Client-Side Zeitcoin Paper Wallet Generator</div>
+		</div><br>
+		<img alt="" title="" id="logo" src="http://cryptodepot.org/paperwallet/zeitcoin/logo.png" />
+		<div id="tagline">CryptoDepot JavaScript Zeitcoin Paper Wallet Generator</div>
 		<div id="seedpoolarea"><textarea rows="16" cols="62" id="seedpool"></textarea></div>
 		<div id="testnet"></div>
 		<div class="menu" id="menu">
@@ -5962,7 +5989,7 @@ body { font-family: Arial; }
 			<div class="tab" id="vanitywallet" onclick="ninja.tabSwitch(this);">Vanity Wallet</div>
 			<div class="tab" id="detailwallet" onclick="ninja.tabSwitch(this);">Wallet Details</div>
 		</div>
-		
+
 		<div id="generate">
 			<span id="generatelabelbitcoinaddress">Generating Zeitcoin Address...</span><br />
 			<span id="generatelabelmovemouse">MOVE your mouse around to add some extra randomness... </span><span id="mousemovelimit"></span><br />
@@ -5998,15 +6025,15 @@ body { font-family: Arial; }
 							<span class="output" id="btcprivwif"></span>
 						</div>
 						<div id="singlesecret">SECRET</div>
-					</div>				
+					</div>
 				</div>
-				
+
 				<div id="singlesafety">
-					<p id="singletip1"><b>A Zeitcoin wallet</b> is as simple as a single pairing of a Zeitcoin address with its corresponding Zeitcoin private key. Such a wallet has been generated for you in your web browser and is displayed above.</p>
+					<p id="singletip1"><b>A ZeitCoin paper wallet</b> is as simple as a single pairing of a Zeitcoin address with its corresponding Zeitcoin private key. Such a wallet has been generated for you in your web browser and is displayed above.</p>
 					<p id="singletip2"><b>To safeguard this wallet</b> you must print or otherwise record the Zeitcoin address and private key. It is important to make a backup copy of the private key and store it in a safe location. This site does not have knowledge of your private key. If you leave/refresh the site or press the "Generate New Address" button then a new private key will be generated and the previously displayed private key will not be retrievable.	Your Zeitcoin private key should be kept a secret. Whomever you share the private key with has access to spend all the Zeitcoins associated with that address. If you print your wallet then store it in a zip lock bag to keep it safe from water. Treat a paper wallet like cash.</p>
 					<p id="singletip3"><b>Add funds</b> to this wallet by instructing others to send Zeitcoins to your Zeitcoin address.</p>
-					<p id="singletip4"><b>Check your balance</b> by going to https://chainz.cryptoid.info/zeit/ and entering your Zeitcoin address.</p>
-					<p id="singletip5"><b>Spend your Zeitcoins</b> by downloading one of the popular Zeitcoin p2p clients found <a href="https://github.com/Zeitcoin-official/binaries" target="_blank">Here</a> for Win/Mac/Linux or <a href="https://github.com/Zeitcoin-official/Zeitcoin" target="_blank">Here</a> to compile from source. Run the wallet and then import your private key into the p2p client. Keep in mind when you import your single key to a Zeitcoin p2p client and spend funds your key will be bundled with other private keys in the p2p client wallet. When you perform a transaction your change will be sent to another Zeitcoin address within the p2p client wallet. You must then backup the p2p client wallet and keep it safe as your remaining Zeitcoins will be stored there. Satoshi advised that one should <b>never</b> delete a wallet.</p>
+					<p id="singletip4"><b>Check your balance</b> by going to chainz.cryptoid.info/ZEIT/and entering your Zeitcoin address.</p>
+					<p id="singletip5"><b>Spend your Zeitcoins</b> by downloading one of the popular Zeitcoin p2p clients found <a href="https://github.com/zeitcoin/zeitcoin/releases" target="_blank">Here</a> for Win/Mac/Linux or <a href="https://github.com/zeitcoin/zeitcoin/" target="_blank">Here</a> to compile from source. Run the wallet and then import your private key into the p2p client. Keep in mind when you import your single key to a Zeitcoin p2p client and spend funds your key will be bundled with other private keys in the p2p client wallet. When you perform a transaction your change will be sent to another Zeitcoin address within the p2p client wallet. You must then backup the p2p client wallet and keep it safe as your remaining Zeitcoins will be stored there. Satoshi advised that one should <b>never</b> delete a wallet.</p>
 				</div>
 			</div>
 
@@ -6026,7 +6053,7 @@ body { font-family: Arial; }
 				</div>
 				<div id="paperkeyarea"></div>
 			</div>
-			
+
 			<div id="bulkarea" class="walletarea">
 				<div class="commands">
 					<div id="bulkcommands" class="row">
@@ -6042,14 +6069,14 @@ body { font-family: Arial; }
 					<textarea rows="20" cols="88" id="bulktextarea"></textarea>
 				</div>
 				<div class="faqs">
-					<div id="bulkfaq1" class="faq"> 
+					<div id="bulkfaq1" class="faq">
 						<div id="bulkq1" class="question" onclick="ninja.wallets.bulkwallet.openCloseFaq(1);">
 							<span id="bulklabelq1">Why should I use a Bulk Wallet to accept Zeitcoins on my website?</span>
 							<div id="bulke1" class="more"></div>
 						</div>
 						<div id="bulka1" class="answer">The traditional approach to accepting Zeitcoins on your website requires that you install the official Zeitcoin client daemon ("Zeitcoind"). Many website hosting packages don't support installing the Zeitcoin daemon. Also, running the Zeitcoin daemon on your web server means your private keys are hosted on the server and could get stolen if your web server is hacked. When using a Bulk Wallet you can upload only the Zeitcoin addresses and not the private keys to your web server. Then you don't have to worry about your Zeitcoin wallet being stolen if your web server is hacked. </div>
 					</div>
-					<div id="bulkfaq2" class="faq"> 
+					<div id="bulkfaq2" class="faq">
 						<div id="bulkq2" class="question" onclick="ninja.wallets.bulkwallet.openCloseFaq(2);">
 							<span id="bulklabelq2">How do I use a Bulk Wallet to accept Zeitcoins on my website?</span>
 							<div id="bulke2" class="more"></div>
@@ -6059,14 +6086,14 @@ body { font-family: Arial; }
 							<li id="bulklabela2li1">Use the Bulk Wallet tab to pre-generate a large number of Zeitcoin addresses (10,000+). Copy and paste the generated comma separated values (CSV) list to a secure text file on your computer. Backup the file you just created to a secure location.</li>
 							<li id="bulklabela2li2">Import the Zeitcoin addresses into a database table on your web server. (Don't put the wallet/private keys on your web server, otherwise you risk hackers stealing your coins. Just the Zeitcoin addresses as they will be shown to customers.)</li>
 							<li id="bulklabela2li3">Provide an option on your website's shopping cart for your customer to pay in Zeitcoin. When the customer chooses to pay in Zeitcoin you will then display one of the addresses from your database to the customer as his "payment address" and save it with his shopping cart order.</li>
-							<li id="bulklabela2li4">You now need to be notified when the payment arrives which can be programmatically automated. To manually check if a payment has arrived you can use the <a href="https://chainz.cryptoid.info/zeit/">Zeitcoin Block Explorer</a> and paste the Zeitcoin address you are checking into the search box. It could take upto 1 hour for the transaction to be confirmed on the blockchain, it's usually alot quicker generally within minutes. However, unconfirmed transactions should appear within 30 seconds.</li>
+							<li id="bulklabela2li4">You now need to be notified when the payment arrives which can be programmatically automated. To manually check if a payment has arrived you can use the <a href="https://chainz.cryptoid.info/ZEIT/">Zeitcoin Block Explorer</a> and paste the Zeitcoin address you are checking into the search box. It could take upto 1 hour for the transaction to be confirmed on the blockchain, it's usually alot quicker generally within minutes. However, unconfirmed transactions should appear within 30 seconds.</li>
 							<li id="bulklabela2li5">Zeitcoins will safely pile up on the block chain. Use the original wallet file you generated in step 1 to spend them.</li>
 							</ol>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+
 			<div id="brainarea" class="walletarea">
 				<div id="braincommands" class="commands">
 					<div class="row">
@@ -6100,10 +6127,10 @@ body { font-family: Arial; }
 					</div>
 				</div>
 			</div>
-			
+
 			<div id="vanityarea" class="walletarea">
 				<div id="vanitystep1label" class="commands expandable" onclick="ninja.wallets.vanitywallet.openCloseStep(1);">
-					<span><label id="vanitylabelstep1">Step 1 - Generate your "Step1 Key Pair"</label> <input type="button" id="vanitynewkeypair" 
+					<span><label id="vanitylabelstep1">Step 1 - Generate your "Step1 Key Pair"</label> <input type="button" id="vanitynewkeypair"
 						value="Generate" onclick="ninja.wallets.vanitywallet.generateKeyPair();" /></span>
 					<div id="vanitystep1icon" class="more"></div>
 				</div>
@@ -6146,7 +6173,7 @@ body { font-family: Arial; }
 						<span class="output" id="vanityaddress"></span>
 						<br /><div class="notes" id="vanitylabelnotesbitcoinaddress">The above is your new address that should include your required prefix.</div>
 					</div>
-					
+
 					<div>
 						<span class="label" id="vanitylabelpublickeyhex">Vanity Public Key (HEX):</span>
 						<span class="output pubkeyhex" id="vanitypublickeyhex"></span>
@@ -6161,7 +6188,7 @@ body { font-family: Arial; }
 				</div>
 			</div>
 
-			<div id="detailarea" class="walletarea">	
+			<div id="detailarea" class="walletarea">
 				<div id="detailcommands" class="commands">
 					<span><label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label></span>
 					<input type="text" id="detailprivkey" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" />
@@ -6179,14 +6206,14 @@ body { font-family: Arial; }
 					<div class="notes">
 						<span id="detaillabelnote1">Your Zeitcoin Private Key is a unique secret number that only you know. It can be encoded in a number of different formats. Below we show the Zeitcoin Address and Public Key that corresponds to your Private Key as well as your Private Key in the most popular encoding formats (WIF, WIFC, HEX, B64, MINI).</span>
 						<br /><br />
-						<span id="detaillabelnote2">Zeitcoin v2.1.1 stores public keys in compressed format. The client now also supports import and export of private keys with importprivkey/dumpprivkey. The format of the exported private key is determined by whether the address was generated in an old or new wallet.</span>
+						<span id="detaillabelnote2">Zeitcoin stores public keys in compressed format. The client now also supports import and export of private keys with importprivkey/dumpprivkey. The format of the exported private key is determined by whether the address was generated in an old or new wallet.</span>
 					</div>
 					<div class="pubqr">
 						<div class="item">
 							<span class="label" id="detaillabelbitcoinaddress">Zeitcoin Address</span>
 							<div id="detailqrcodepublic" class="qrcode_public"></div>
 							<span class="output" id="detailaddress"></span>
-						</div>					
+						</div>
 						<div class="item right">
 							<span class="label" id="detaillabelbitcoinaddresscomp">Zeitcoin Address Compressed</span>
 							<div id="detailqrcodepubliccomp" class="qrcode_public"></div>
@@ -6205,12 +6232,12 @@ body { font-family: Arial; }
 					<hr />
 					<div class="privqr">
 						<div class="item">
-							<span class="label"><span id="detaillabelprivwif">Private Key WIF<br />51 characters base58, starts with a</span> <span id="detailwifprefix">'7'</span></span>
+							<span class="label"><span id="detaillabelprivwif">Private Key WIF<br />51 characters base58, starts with a</span> <span id="detailwifprefix">'6' or '7'</span></span>
 							<div id="detailqrcodeprivate" class="qrcode_private"></div>
 							<span class="output" id="detailprivwif"></span>
 						</div>
 						<div class="item right">
-							<span class="label"><span id="detaillabelprivwifcomp">Private Key WIF Compressed<br />52 characters base58, starts with a</span> <span id="detailcompwifprefix">'U'</span></span>
+							<span class="label"><span id="detaillabelprivwifcomp">Private Key WIF Compressed<br />52 characters base58, starts with a</span> <span id="detailcompwifprefix">'T'</span></span>
 							<div id="detailqrcodeprivatecomp" class="qrcode_private"></div>
 							<span class="output" id="detailprivwifcomp"></span>
 						</div>
@@ -6238,7 +6265,7 @@ body { font-family: Arial; }
 					</div>
 				</div>
 				<div class="faqs">
-					<div id="detailfaq1" class="faq"> 
+					<div id="detailfaq1" class="faq">
 						<div id="detailq1" class="question" onclick="ninja.wallets.detailwallet.openCloseFaq(1);">
 							<span id="detaillabelq1">How do I make a wallet using dice? What is B6?</span>
 							<div id="detaile1" class="more"></div>
@@ -6250,7 +6277,15 @@ body { font-family: Arial; }
 		</div>
 
 		<div id="footer" class="footer">
-			
+			<div class="authorbtc">
+				<div>
+					<span class="item"><span id="footerlabeldonations">Donations:</span><br>
+					<A href="http://www.zeit-coin.net/">Zeitcoin Website</a> - <A href="http://www.cryptodepot.org/">CryptoDepot</a>
+					<div class="siteseal"><span id="cdSiteSeal1"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal1&amp;cdSealType=Seal1&amp;sealId=55e4ye7y7mb7339cd928d679e3425bavh7y7mb7355e4ye734a4a7978d612d8b8"></script></span></span></div>
+
+					<span class="item" id="footerlabeltranslatedby"></span>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -6310,7 +6345,7 @@ ninja.privateKey = {
 			callback(new Error(ninja.translator.get("detailalertnotvalidprivatekey")));
 			return;
 		}
-		// first byte is always 0x01 
+		// first byte is always 0x01
 		else if (hex[0] != 0x01) {
 			callback(new Error(ninja.translator.get("detailalertnotvalidprivatekey")));
 			return;
@@ -6339,7 +6374,7 @@ ninja.privateKey = {
 				return;
 			}
 		}
-		// second byte for EC-multiplied key 
+		// second byte for EC-multiplied key
 		else if (hex[1] == 0x43) {
 			isECMult = true;
 			isCompPoint = (hex[2] & 0x20) != 0;
@@ -6753,7 +6788,7 @@ ninja.qrCode = {
 		return canvas;
 	},
 
-	// generate a QRCode and return it's representation as an Html table 
+	// generate a QRCode and return it's representation as an Html table
 	createTableHtml: function (text) {
 		var typeNumber = ninja.qrCode.getTypeNumber(text);
 		var qr = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
@@ -6776,7 +6811,7 @@ ninja.qrCode = {
 	},
 
 	// show QRCodes with canvas OR table (IE8)
-	// parameter: keyValuePair 
+	// parameter: keyValuePair
 	// example: { "id1": "string1", "id2": "string2"}
 	//		"id1" is the id of a div element where you want a QRCode inserted.
 	//		"string1" is the string you want encoded into the QRCode.
@@ -6916,8 +6951,8 @@ ninja.translator = {
 			"brainalertpassphrasedoesnotmatch": "Las contraseñas no coinciden.",
 			"detailalertnotvalidprivatekey": "El texto que has introducido no es una clave privada válida",
 			"detailconfirmsha256": "El texto que has introducido no es una clave privada válida\n\n¿Quieres usar ese texto como si fuera una contraseña y generar una clave privada usando un hash SHA256 de tal contraseña?\n\nAviso: Es importante escoger una contraseña fuerte para evitar ataques de fuerza bruta a fin de adivinarla y robar tus Zeitcoins.",
-			"bip38alertincorrectpassphrase": "Incorrect passphrase for this encrypted private key.", //TODO: please translate
-			"bip38alertpassphraserequired": "Passphrase required for BIP38 key", //TODO: please translate
+			"bip38alertincorrectpassphrase": "Incorrect passphrase for this encrypted private key.",
+			"bip38alertpassphraserequired": "Passphrase required for BIP38 key",
 			"vanityinvalidinputcouldnotcombinekeys": "Entrada no válida. No se puede combinar llaves.",
 			"vanityalertinvalidinputpublickeysmatch": "Entrada no válida. La clave pública de ambos coincidan entradas. Debe introducir dos claves diferentes.",
 			"vanityalertinvalidinputcannotmultiple": "Entrada no válida. No se puede multiplicar dos claves públicas. Seleccione 'Añadir' para agregar dos claves públicas para obtener una dirección Zeitcoin.",
@@ -6928,7 +6963,7 @@ ninja.translator = {
 			"tagline": "Generador de carteras Zeitcoin de código abierto en lado de cliente con Javascript",
 			"generatelabelbitcoinaddress": "Generando dirección Zeitcoin...",
 			"generatelabelmovemouse": "Mueve un poco el ratón para crear entropía...",
-			"generatelabelkeypress": "OR type some random characters into this textbox", //TODO: please translate
+			"generatelabelkeypress": "O escribir algunos caracteres aleatorios en el campo respectivo",
 			"singlewallet": "Una sola cartera",
 			"paperwallet": "Cartera en papel",
 			"bulkwallet": "Direcciones en masa",
@@ -6938,11 +6973,11 @@ ninja.translator = {
 
 			// footer html
 			"footerlabeldonations": "Donaciones:",
-			"footerlabeltranslatedby": "Traducción: <b>12345</b>Vypv2QSmuRXcciT5oEB27mPbWGeva",
+			"footerlabeltranslatedby": "",
 			"footerlabelpgp": "PGP",
 			"footerlabelversion": "Histórico de versiones",
 			"footerlabelgithub": "Repositorio GitHub",
-			"footerlabelcopyright1": "Copyright bitaddress.org.",
+			"footerlabelcopyright1": "Copyright CWI-Network.",
 			"footerlabelcopyright2": "Copyright del código JavaScript: en el fuente.",
 			"footerlabelnowarranty": "Sin garantía.",
 
@@ -6951,11 +6986,11 @@ ninja.translator = {
 			"singleprint": "Imprimir",
 			"singlelabelbitcoinaddress": "Dirección Zeitcoin",
 			"singlelabelprivatekey": "Clave privada (formato para importar):",
-			"singletip1": "<b>A Zeitcoin wallet</b> is as simple as a single pairing of a Zeitcoin address with it's corresponding Zeitcoin private key. Such a wallet has been generated for you in your web browser and is displayed above.", //TODO: please translate
-			"singletip2": "<b>To safeguard this wallet</b> you must print or otherwise record the Zeitcoin address and private key. It is important to make a backup copy of the private key and store it in a safe location. This site does not have knowledge of your private key. If you are familiar with PGP you can download this all-in-one HTML page and check that you have an authentic version from the author of this site by matching the SHA1 hash of this HTML with the SHA1 hash available in the signed version history document linked on the footer of this site. If you leave/refresh the site or press the Generate New Address button then a new private key will be generated and the previously displayed private key will not be retrievable.	Your Zeitcoin private key should be kept a secret. Whomever you share the private key with has access to spend all the Zeitcoins associated with that address. If you print your wallet then store it in a zip lock bag to keep it safe from water. Treat a paper wallet like cash.", //TODO: please translate
-			"singletip3": "<b>Add funds</b> to this wallet by instructing others to send Zeitcoins to your Zeitcoin address.", //TODO: please translate
-			"singletip4": "<b>Check your balance</b> by going to https://chainz.cryptoid.info/zeit/ and entering your Zeitcoin address.", //TODO: please translate
-			"singletip5": "<b>Spend your Zeitcoins</b> by going to https://chainz.cryptoid.info/zeit/ and sweep the full balance of your private key into your account at their website. You can also spend your funds by downloading one of the popular Zeitcoin p2p clients and importing your private key to the p2p client wallet. Keep in mind when you import your single key to a Zeitcoin p2p client and spend funds your key will be bundled with other private keys in the p2p client wallet. When you perform a transaction your change will be sent to another Zeitcoin address within the p2p client wallet. You must then backup the p2p client wallet and keep it safe as your remaining Zeitcoins will be stored there. Satoshi advised that one should never delete a wallet.", //TODO: please translate
+			"singletip1": "<B> Una cartera Zeitcoin </ b> es tan simple como un único emparejamiento de una dirección Zeitcoin con su correspondiente clave privada Zeitcoin. Dicha cartera se ha generado para usted en su navegador web y se muestra más arriba.",
+			"singletip2": "<B> Para salvaguardar esta cartera </ b> se debe imprimir o no registrar la dirección Zeitcoin y la clave privada. Es importante hacer una copia de seguridad de la clave privada y guardarla en un lugar seguro. Este sitio no tiene conocimiento de su clave privada. Si está familiarizado con PGP se puede descargar esta página HTML todo-en-uno y compruebe que dispone de una versión auténtica del autor de este sitio, haciendo coincidir el hash SHA1 de este HTML con el hash SHA1 disponibles en el documento de la historia versión firmada vinculado en el pie de página de este sitio. Si deja / actualizar el sitio o pulse el botón Nuevo Dirección a continuación, se generará una nueva clave privada y generar la mostrada anteriormente clave privada no se podrá recuperar. Su clave privada Zeitcoin debe mantenerse en secreto. Quienquiera que compartir la clave privada con el acceso tiene que pasar todos los Zeitcoins asociados con esa dirección. Si imprime su billetera luego guardarlo en una bolsa con cierre hermético para mantenerlo a salvo del agua. Tratar a una cartera de papel como dinero en efectivo.",
+			"singletip3": "<B> Añadir fondos </ b> a esta cartera al instruir a otros a enviar a su dirección Zeitcoins Zeitcoin.",
+			"singletip4": "<B> Comprobar el saldo de su </ b> yendo a chainz.cryptoid.info/ZEIT/ e introduciendo su dirección de Zeitcoin.",
+			"singletip5": "<B> Pase sus Zeitcoins </ b> yendo a chainz.cryptoid.info/ZEIT/ y barrer el saldo total de su clave privada en su cuenta en su página web. También puede pasar sus fondos mediante la descarga de uno de los clientes P2P Zeitcoin populares y la importación de su clave privada para la cartera de clientes p2p. Tenga en cuenta al importar su clave única a un cliente p2p Zeitcoin y gastar los fondos de su clave será incluida con las otras claves privadas de la cartera de clientes p2p. Al realizar una transacción de su cambio será enviado a otra dirección Zeitcoin dentro de la cartera de clientes p2p. A continuación, debe copia de seguridad de la cartera de clientes p2p y garantizar su seguridad como se almacenarán sus Zeitcoins restantes allí. Satoshi aconsejó que nunca se debe eliminar una billetera.",
 
 			// paper wallet html
 			"paperlabelhideart": "Ocultar diseño",
@@ -6963,13 +6998,13 @@ ninja.translator = {
 			"paperlabeladdressestogenerate": "Direcciones en total:",
 			"papergenerate": "Generar",
 			"paperprint": "Imprimir",
-			"paperlabelBIPpassphrase": "Passphrase:", //TODO: please translate
-			"paperlabelencrypt": "BIP38 Encrypt?", //TODO: please translate
+			"paperlabelBIPpassphrase": "frase de contraseña:",
+			"paperlabelencrypt": "Cifrar BIP38?",
 
 			// bulk wallet html
 			"bulklabelstartindex": "Empezar en:",
 			"bulklabelrowstogenerate": "Filas a generar:",
-			"bulklabelcompressed": "Compressed addresses?", //TODO: please translate
+			"bulklabelcompressed": "direcciones comprimido?",
 			"bulkgenerate": "Generar",
 			"bulkprint": "Imprimir",
 			"bulklabelcsv": "Valores separados por coma:",
@@ -6980,7 +7015,7 @@ ninja.translator = {
 			"bulklabela2li1": "Usa el tab \"Direcciones en masa\" para generar por anticipado muchas direcciones (más de 10000). Copia y pega la lista de valores separados por comas (CSV) a un archivo de texto seguro (cifrado) en tu ordenador. Guarda una copia de seguridad en algún lugar seguro.",
 			"bulklabela2li2": "Importa las direcciones en la base de datos de tu servidor. No subas la cartera ni las claves públicas, o de lo contrario te lo pueden robar. Sube sólo las direcciones, ya que es lo que se va a mostrar a los clientes.",
 			"bulklabela2li3": "Ofrece una alternativa en el carro de la compra de tu web para que los clientes paguen con Zeitcoin. Cuando el cliente elija pagar con Zeitcoin, les muestras una de las direcciones de la base de datos como su \"dirección de pago\" y guardas esto junto con el pedido.",
-			"bulklabela2li4": "Ahora te hace falta recibir una notificación del pago. Busca en google \"notificación de pagos Zeitcoin\" (o \"Zeitcoin payment notification\" en inglés) y suscríbete a alguno de los servicios que aparezcan. Hay varios de ellos, que te pueden notificar vía Web services, API, SMS, email, etc. Una vez te llegue la notificación, lo cual puede ser automatizado, entonces ya puedes procesar el pedido. Para comprobar a mano si has recibido un pago, puedes usar Block Explorer: reemplaza DIRECCION a continuación por la dirección que estés comprobando. La transacción puede tardar entre 10 minutos y una hora en ser confirmada. <br />http://https://chainz.cryptoid.info/zeit//address/DIRECCION<br /><br />Puedes ver las transacciones sin confirmar en: http://https://chainz.cryptoid.info/zeit// <br />Las transacciones sin confirmar suelen aparecer ahí en unos 30 segundos.",
+			"bulklabela2li4": "Ahora te hace falta recibir una notificación del pago. Busca en google \"notificación de pagos Zeitcoin\" (o \"Zeitcoin payment notification\" en inglés) y suscríbete a alguno de los servicios que aparezcan. Hay varios de ellos, que te pueden notificar vía Web services, API, SMS, email, etc. Una vez te llegue la notificación, lo cual puede ser automatizado, entonces ya puedes procesar el pedido. Para comprobar a mano si has recibido un pago, puedes usar Block Explorer: reemplaza DIRECCION a continuación por la dirección que estés comprobando. La transacción puede tardar entre 10 minutos y una hora en ser confirmada. <br />http://chainz.cryptoid.info/ZEIT/address/DIRECCION<br /><br />Puedes ver las transacciones sin confirmar en: http://chainz.cryptoid.info/ZEIT/ <br />Las transacciones sin confirmar suelen aparecer ahí en unos 30 segundos.",
 			"bulklabela2li5": "Las Zeitcoins que recibas se almacenarán de forma segura en la cadena de bloques. Usa la cartera original que generaste en el paso 1 para usarlas.",
 
 			// brain wallet html
@@ -7021,21 +7056,21 @@ ninja.translator = {
 			"detailview": "Ver detalles",
 			"detailprint": "Imprimir",
 			"detaillabelnote1": "Tu clave privada es un número secreto, único, que sólo tú conoces. Se puede expresar en varios formatos. Aquí abajo mostramos la dirección y la clave pública que se corresponden con tu clave privada, así como la clave privada en los formatos más conocidos (para importar, hex, base64 y mini).",
-			"detaillabelnote2": "Zeitcoin v2.2.1 almacena las claves públicas comprimidas. El cliente también soporta importar/exportar claves privadas usando importprivkey/dumpprivkey. El formato de las claves privadas exportadas depende de si la dirección se generó en una cartera antigua o nueva.",
+			"detaillabelnote2": "Zeitcoin almacena las claves públicas comprimidas. El cliente también soporta importar/exportar claves privadas usando importprivkey/dumpprivkey. El formato de las claves privadas exportadas depende de si la dirección se generó en una cartera antigua o nueva.",
 			"detaillabelbitcoinaddress": "Dirección Zeitcoin:",
 			"detaillabelbitcoinaddresscomp": "Dirección Zeitcoin (comprimida):",
 			"detaillabelpublickey": "Clave pública (130 caracteres [0-9A-F]):",
 			"detaillabelpublickeycomp": "Clave pública (comprimida, 66 caracteres [0-9A-F]):",
 			"detaillabelprivwif": "Clave privada para importar (51 caracteres en base58, empieza con un",
 			"detaillabelprivwifcomp": "Clave privada para importar (comprimida, 52 caracteres en base58, empieza con",
-			"detailcompwifprefix": "'K' o 'L'",
+			"detailcompwifprefix": "'T'",
 			"detaillabelprivhex": "Clave privada en formato hexadecimal (64 caracteres [0-9A-F]):",
 			"detaillabelprivb64": "Clave privada en base64 (44 caracteres):",
 			"detaillabelprivmini": "Clave privada en formato mini (22, 26 o 30 caracteres, empieza por 'S'):",
-			"detaillabelpassphrase": "BIP38 Passphrase", //TODO: please translate
-			"detaildecrypt": "Decrypt BIP38", //TODO: please translate
-			"detaillabelq1": "How do I make a wallet using dice? What is B6?", //TODO: please translate
-			"detaila1": "An important part of creating a Zeitcoin wallet is ensuring the random numbers used to create the wallet are truly random. Physical randomness is better than computer generated pseudo-randomness. The easiest way to generate physical randomness is with dice. To create a Zeitcoin private key you only need one six sided die which you roll 99 times. Stopping each time to record the value of the die. When recording the values follow these rules: 1=1, 2=2, 3=3, 4=4, 5=5, 6=0. By doing this you are recording the big random number, your private key, in B6 or base 6 format. You can then enter the 99 character base 6 private key into the text field above and click View Details. You will then see the Zeitcoin address associated with your private key. You should also make note of your private key in WIF format since it is more widely used." //TODO: please translate
+			"detaillabelpassphrase": "BIP38 frase de contraseña",
+			"detaildecrypt": "Descifrar BIP38",
+			"detaillabelq1": "¿Cómo hago una cartera usando dados? Lo que es B6?",
+			"detaila1": "Una parte importante de la creación de una cartera Zeitcoin es asegurar los números aleatorios usados para crear la cartera son verdaderamente aleatoria. aleatoriedad física es mejor que generada por ordenador pseudo-aleatoriedad. La forma más sencilla de generar aleatoriedad física es con los dados. Para crear una clave privada Zeitcoin sólo necesita una matriz de seis caras que usted rueda 99 veces. Detener cada vez para registrar el valor de la matriz. Al grabar los valores siguen estas reglas: 1 = 1, 2 = 2, 3 = 3, 4 = 4, 5 = 5, 6 = 0. De esta manera se está grabando el gran número al azar, su clave privada, en formato B6 o base 6. A continuación, puede introducir la clave privada de base 99 caracteres 6 en el campo de texto y haga clic en Ver detalles. A continuación, aparecerá la dirección de Zeitcoin asociada con su clave privada. También debe tomar nota de su clave privada en formato WIF ya que se utiliza más ampliamente.",
 		},
 
 		"fr": {
@@ -7043,53 +7078,53 @@ ninja.translator = {
 			"testneteditionactivated": "ÉDITION TESTNET ACTIVÉE",
 			"paperlabelbitcoinaddress": "Adresse Zeitcoin:",
 			"paperlabelprivatekey": "Clé Privée (Format d'importation de porte-monnaie):",
-			"paperlabelencryptedkey": "Encrypted Private Key (Password required)", //TODO: please translate
+			"paperlabelencryptedkey": "Encrypted Private Key (Password required)",
 			"bulkgeneratingaddresses": "Création de l'adresse... ",
 			"brainalertpassphrasetooshort": "Le mot de passe que vous avez entré est trop court.\n\n",
 			"brainalertpassphrasewarning": "Attention: Choisir un mot de passe solide est important pour vous protéger des attaques bruteforce visant à trouver votre mot de passe et voler vos Zeitcoins.",
 			"brainalertpassphrasedoesnotmatch": "Le mot de passe ne correspond pas au mot de passe de vérification.",
 			"detailalertnotvalidprivatekey": "Le texte que vous avez entré n'est pas une Clé Privée valide",
 			"detailconfirmsha256": "Le texte que vous avez entré n'est pas une Clé Privée valide!\n\nVoulez-vous utiliser le texte comme un mot de passe et créer une Clé Privée à partir d'un hash SHA256 de ce mot de passe?\n\nAttention: Choisir un mot de passe solide est important pour vous protéger des attaques bruteforce visant à trouver votre mot de passe et voler vos Zeitcoins.",
-			"bip38alertincorrectpassphrase": "Incorrect passphrase for this encrypted private key.", //TODO: please translate
-			"bip38alertpassphraserequired": "Passphrase required for BIP38 key", //TODO: please translate
+			"bip38alertincorrectpassphrase": "Incorrect passphrase for this encrypted private key.",
+			"bip38alertpassphraserequired": "Passphrase requise pour BIP38 clé",
 			"vanityinvalidinputcouldnotcombinekeys": "Entrée non valide. Impossible de combiner les clés.",
 			"vanityalertinvalidinputpublickeysmatch": "Entrée non valide. La clé publique des deux entrées est identique. Vous devez entrer deux clés différentes.",
 			"vanityalertinvalidinputcannotmultiple": "Entrée non valide. Il n'est pas possible de multiplier deux clés publiques. Sélectionner 'Ajouter' pour ajouter deux clés publiques pour obtenir une adresse Zeitcoin.",
 			"vanityprivatekeyonlyavailable": "Seulement disponible si vos combinez deux clés privées",
 			"vanityalertinvalidinputprivatekeysmatch": "Entrée non valide. La clé Privée des deux entrées est identique. Vous devez entrer deux clés différentes.",
-			
+
 			// header and menu html
 			"tagline": "Générateur De Porte-Monnaie Zeitcoin Javascript Hors-Ligne",
 			"generatelabelbitcoinaddress": "Création de l'adresse Zeitcoin...",
 			"generatelabelmovemouse": "BOUGEZ votre souris pour ajouter de l'entropie...",
-			"generatelabelkeypress": "OR type some random characters into this textbox", //TODO: please translate
+			"generatelabelkeypress": "OU taper quelques caractères aléatoires dans la case",
 			"singlewallet": "Porte-Monnaie Simple",
 			"paperwallet": "Porte-Monnaie Papier",
 			"bulkwallet": "Porte-Monnaie En Vrac",
 			"brainwallet": "Porte-Monnaie Cerveau",
 			"vanitywallet": "Porte-Monnaie Vanité",
-			"detailwallet": "Détails du Porte-Monnaie",
-			
+			"detailwallet": "Détails du Porte",
+
 			// footer html
 			"footerlabeldonations": "Dons:",
-			"footerlabeltranslatedby": "Traduction: 1Gy7NYSJNUYqUdXTBow5d7bCUEJkUFDFSq",
+			"footerlabeltranslatedby": "",
 			"footerlabelpgp": "PGP",
 			"footerlabelversion": "Historique De Version",
 			"footerlabelgithub": "Dépôt GitHub",
-			"footerlabelcopyright1": "Copyright bitaddress.org.",
+			"footerlabelcopyright1": "Copyright CWI-Network.",
 			"footerlabelcopyright2": "Les droits d'auteurs JavaScript sont inclus dans le code source.",
 			"footerlabelnowarranty": "Aucune garantie.",
-			
+
 			// single wallet html
 			"newaddress": "Générer Une Nouvelle Adresse",
 			"singleprint": "Imprimer",
 			"singlelabelbitcoinaddress": "Adresse Zeitcoin:",
 			"singlelabelprivatekey": "Clé Privée (Format d'importation de porte-monnaie):",
-			"singletip1": "<b>A Zeitcoin wallet</b> is as simple as a single pairing of a Zeitcoin address with it's corresponding Zeitcoin private key. Such a wallet has been generated for you in your web browser and is displayed above.", //TODO: please translate
-			"singletip2": "<b>To safeguard this wallet</b> you must print or otherwise record the Zeitcoin address and private key. It is important to make a backup copy of the private key and store it in a safe location. This site does not have knowledge of your private key. If you are familiar with PGP you can download this all-in-one HTML page and check that you have an authentic version from the author of this site by matching the SHA1 hash of this HTML with the SHA1 hash available in the signed version history document linked on the footer of this site. If you leave/refresh the site or press the Generate New Address button then a new private key will be generated and the previously displayed private key will not be retrievable.	Your Zeitcoin private key should be kept a secret. Whomever you share the private key with has access to spend all the Zeitcoins associated with that address. If you print your wallet then store it in a zip lock bag to keep it safe from water. Treat a paper wallet like cash.", //TODO: please translate
-			"singletip3": "<b>Add funds</b> to this wallet by instructing others to send Zeitcoins to your Zeitcoin address.", //TODO: please translate
-			"singletip4": "<b>Check your balance</b> by going to blockchain.info or https://chainz.cryptoid.info/zeit/ and entering your Zeitcoin address.", //TODO: please translate
-			"singletip5": "<b>Spend your Zeitcoins</b> by going to https://chainz.cryptoid.info/zeit/ and sweep the full balance of your private key into your account at their website. You can also spend your funds by downloading one of the popular Zeitcoin p2p clients and importing your private key to the p2p client wallet. Keep in mind when you import your single key to a Zeitcoin p2p client and spend funds your key will be bundled with other private keys in the p2p client wallet. When you perform a transaction your change will be sent to another Zeitcoin address within the p2p client wallet. You must then backup the p2p client wallet and keep it safe as your remaining Zeitcoins will be stored there. Satoshi advised that one should never delete a wallet.", //TODO: please translate
+			"singletip1": "<B> Una cartera Zeitcoin </ b> es tan simple como un único emparejamiento de una dirección Zeitcoin con su correspondiente clave privada Zeitcoin. Dicha cartera se ha generado para usted en su navegador web y se muestra más arriba.",
+			"singletip2": "<B> Para salvaguardar esta cartera </ b> se debe imprimir o no registrar la dirección Zeitcoin y la clave privada. Es importante hacer una copia de seguridad de la clave privada y guardarla en un lugar seguro. Este sitio no tiene conocimiento de su clave privada. Si está familiarizado con PGP se puede descargar esta página HTML todo-en-uno y compruebe que dispone de una versión auténtica del autor de este sitio, haciendo coincidir el hash SHA1 de este HTML con el hash SHA1 disponibles en el documento de la historia versión firmada vinculado en el pie de página de este sitio. Si deja / actualizar el sitio o pulse el botón Nuevo Dirección a continuación, se generará una nueva clave privada y generar la mostrada anteriormente clave privada no se podrá recuperar. Su clave privada Zeitcoin debe mantenerse en secreto. Quienquiera que compartir la clave privada con el acceso tiene que pasar todos los Zeitcoins asociados con esa dirección. Si imprime su billetera luego guardarlo en una bolsa con cierre hermético para mantenerlo a salvo del agua. Tratar a una cartera de papel como dinero en efectivo.",
+			"singletip3": "<B> Añadir fondos </ b> a esta cartera al instruir a otros a enviar a su dirección Zeitcoins Zeitcoin.",
+			"singletip4": "<B> Comprobar el saldo de su </ b> yendo a o chainz.cryptoid.info/ZEIT/ e introduciendo su dirección de Zeitcoin.",
+			"singletip5": "<B> Pase sus Zeitcoins </ b> yendo a chainz.cryptoid.info/ZEIT/ y barrer el saldo total de su clave privada en su cuenta en su página web. También puede pasar sus fondos mediante la descarga de uno de los clientes P2P Zeitcoin populares y la importación de su clave privada para la cartera de clientes p2p. Tenga en cuenta al importar su clave única a un cliente p2p Zeitcoin y gastar los fondos de su clave será incluida con las otras claves privadas de la cartera de clientes p2p. Al realizar una transacción de su cambio será enviado a otra dirección Zeitcoin dentro de la cartera de clientes p2p. A continuación, debe copia de seguridad de la cartera de clientes p2p y garantizar su seguridad como se almacenarán sus Zeitcoins restantes allí. Satoshi aconsejó que nunca se debe eliminar una billetera.",
 
 			// paper wallet html
 			"paperlabelhideart": "Retirer Le Style?",
@@ -7097,13 +7132,13 @@ ninja.translator = {
 			"paperlabeladdressestogenerate": "Nombre d'adresses à créer:",
 			"papergenerate": "Générer",
 			"paperprint": "Imprimer",
-			"paperlabelBIPpassphrase": "Passphrase:", //TODO: please translate
-			"paperlabelencrypt": "BIP38 Encrypt?", //TODO: please translate
+			"paperlabelBIPpassphrase": "frase de contraseña:",
+			"paperlabelencrypt": "Cifrar BIP38?",
 
 			// bulk wallet html
 			"bulklabelstartindex": "Commencer à l'index:",
 			"bulklabelrowstogenerate": "Colonnes à générer:",
-			"bulklabelcompressed": "Compressed addresses?", //TODO: please translate
+			"bulklabelcompressed": "direcciones comprimido?",
 			"bulkgenerate": "Générer",
 			"bulkprint": "Imprimer",
 			"bulklabelcsv": "Valeurs Séparées Par Des Virgules (CSV):",
@@ -7114,9 +7149,9 @@ ninja.translator = {
 			"bulklabela2li1": "Utilisez le Porte-monnaie en vrac pour pré-générer une large quantité d'adresses Zeitcoin (10,000+). Copiez collez les données séparées par des virgules (CSV) dans un fichier texte sécurisé dans votre ordinateur. Sauvegardez ce fichier dans un endroit sécurisé.",
 			"bulklabela2li2": "Importez les adresses Zeitcoin dans une base de donnée sur votre serveur web. (N'ajoutez pas le porte-monnaie ou les clés privées sur votre serveur web, sinon vous courrez le risque de vous faire voler si votre serveur est compromis. Ajoutez seulement les adresses Zeitcoin qui seront visibles à vos visiteurs.)",
 			"bulklabela2li3": "Ajoutez une option dans votre panier en ligne pour que vos clients puissent vous payer en Zeitcoin. Quand un client choisi de vous payer en Zeitcoin, vous pouvez afficher une des adresses de votre base de donnée comme \"adresse de paiment\" pour votre client et sauvegarder cette adresse avec sa commande.",
-			"bulklabela2li4": "Vous avez maintenant besoin d'être avisé quand le paiement est reçu. Cherchez \"Zeitcoin payment notification\" sur Google et inscrivez-vous à un service de notification de paiement Zeitcoin. Il y a plusieurs services qui vous avertiront via des services Web, API, SMS, Email, etc. Une fois que vous avez reçu la notification, qui devrait être programmée automatiquement, vous pouvez traiter la commande de votre client. Pour vérifier manuellement si un paiement est arrivé, vous pouvez utiliser Block Explorer. Remplacez ADRESSE par l'adresse Zeitcoin que vous souhaitez vérifier. La confirmation de la transaction pourrait prendre de 10 à 60 minutes pour être confirmée.<br />https://chainz.cryptoid.info/zeit//address/ADRESSE<br /><br />Les transactions non confirmées peuvent être visualisées ici: http://blockchain.info/ <br />Vous devriez voir la transaction à l'intérieur de 30 secondes.",
+			"bulklabela2li4": "Vous avez maintenant besoin d'être avisé quand le paiement est reçu. Cherchez \"Zeitcoin payment notification\" sur Google et inscrivez-vous à un service de notification de paiement Zeitcoin. Il y a plusieurs services qui vous avertiront via des services Web, API, SMS, Email, etc. Une fois que vous avez reçu la notification, qui devrait être programmée automatiquement, vous pouvez traiter la commande de votre client. Pour vérifier manuellement si un paiement est arrivé, vous pouvez utiliser Block Explorer. Remplacez ADRESSE par l'adresse Zeitcoin que vous souhaitez vérifier. La confirmation de la transaction pourrait prendre de 10 à 60 minutes pour être confirmée.<br />http://chainz.cryptoid.info/ZEIT/address/ADRESSE<br /><br />Les transactions non confirmées peuvent être visualisées ici: https://chainz.cryptoid.info/ZEIT// <br />Vous devriez voir la transaction à l'intérieur de 30 secondes.",
 			"bulklabela2li5": "Les Zeitcoins vos s'accumuler de façon sécuritaire dans la chaîne de blocs. Utilisez le porte-monnaie original que vous avez généré à l'étape 1 pour les dépenser.",
-			
+
 			// brain wallet html
 			"brainlabelenterpassphrase": "Entrez votre mot de passe: ",
 			"brainlabelshow": "Afficher?",
@@ -7148,28 +7183,28 @@ ninja.translator = {
 			"vanitylabelnotespublickeyhex": "Celle-ci est la Clé Publique dans le format hexadécimal. ",
 			"vanitylabelprivatekey": "Clé Privée Vanité (WIF):",
 			"vanitylabelnotesprivatekey": "Celle-ci est la Clé Privée pour accéder à votre porte-monnaie. ",
-			
+
 			// detail wallet html
 			"detaillabelenterprivatekey": "Entrez la Clé Privée",
 			"detailkeyformats": "Key Formats: WIF, WIFC, HEX, B64, B6, MINI, BIP38",
 			"detailview": "Voir les détails",
 			"detailprint": "Imprimer",
 			"detaillabelnote1": "Votre Clé Privée Zeitcoin est un nombre secret que vous êtes le seul à connaître. Il peut être encodé sous la forme d'un nombre sous différents formats. Ci-bas, nous affichons l'adresse Zeitcoin et la Clé Publique qui corresponds à la Clé Privée ainsi que la Clé Privée dans les formats d'encodage les plus populaires (WIF, WIFC, HEX, B64, MINI).",
-			"detaillabelnote2": "Zeitcoin v2.2.1 conserve les clés publiques dans un format compressé. Le logiciel supporte maintenant aussi l'importation et l'exportation de clés privées avec importprivkey/dumpprivkey. Le format de la clé privée exportée est déterminé selon la version du porte-monnaie Zeitcoin.",
+			"detaillabelnote2": "Zeitcoin conserve les clés publiques dans un format compressé. Le logiciel supporte maintenant aussi l'importation et l'exportation de clés privées avec importprivkey/dumpprivkey. Le format de la clé privée exportée est déterminé selon la version du porte-monnaie Zeitcoin.",
 			"detaillabelbitcoinaddress": "Adresse Zeitcoin:",
 			"detaillabelbitcoinaddresscomp": "Adresse Zeitcoin (compressée):",
 			"detaillabelpublickey": "Clé Publique (130 caractères [0-9A-F]):",
 			"detaillabelpublickeycomp": "Clé Publique (compressée, 66 caractères [0-9A-F]):",
 			"detaillabelprivwif": "Clé Privée WIF (51 caractères base58, débute avec un a",
 			"detaillabelprivwifcomp": "Clé Privée WIF (compressée, 52 caractères base58, débute avec un a",
-			"detailcompwifprefix": "'K' ou 'L'",
+			"detailcompwifprefix": "'T'",
 			"detaillabelprivhex": "Clé Privée Format Hexadecimal (64 caractères [0-9A-F]):",
 			"detaillabelprivb64": "Clé Privée Base64 (44 caractères):",
 			"detaillabelprivmini": "Clé Privée Format Mini (22, 26 ou 30 caractères, débute avec un 'S'):",
-			"detaillabelpassphrase": "BIP38 Passphrase", //TODO: please translate
-			"detaildecrypt": "Decrypt BIP38", //TODO: please translate
-			"detaillabelq1": "How do I make a wallet using dice? What is B6?", //TODO: please translate
-			"detaila1": "An important part of creating a Zeitcoin wallet is ensuring the random numbers used to create the wallet are truly random. Physical randomness is better than computer generated pseudo-randomness. The easiest way to generate physical randomness is with dice. To create a Zeitcoin private key you only need one six sided die which you roll 99 times. Stopping each time to record the value of the die. When recording the values follow these rules: 1=1, 2=2, 3=3, 4=4, 5=5, 6=0. By doing this you are recording the big random number, your private key, in B6 or base 6 format. You can then enter the 99 character base 6 private key into the text field above and click View Details. You will then see the Zeitcoin address associated with your private key. You should also make note of your private key in WIF format since it is more widely used." //TODO: please translate
+			"detaillabelpassphrase": "BIP38 Passphrase",
+			"detaildecrypt": "Décrypter BIP38",
+			"detaillabelq1": "Comment puis-je faire un portefeuille à l'aide de dés? Qu'est-ce que B6?",
+			"detaila1": "Une partie importante de la création d'un portefeuille Zeitcoin est d'assurer les nombres aléatoires utilisés pour créer le portefeuille sont vraiment aléatoire. aléatoire physique est meilleure que l'ordinateur généré pseudo-aléatoire. La meilleure façon de générer le hasard physique est avec des dés. Pour créer une clé privée Zeitcoin vous avez seulement besoin d'un six die face qui vous roulez 99 fois. Arrêt à chaque fois pour enregistrer la valeur de la filière. Lors de l'enregistrement des valeurs suivent ces règles: 1 = 1, 2 = 2, 3 = 3, 4 = 4, 5 = 5, 6 = 0. En faisant cela, vous enregistrez le grand nombre aléatoire, votre clé privée, en format B6 ou base 6. Vous pouvez alors entrer la clé privée de base de 99 caractères 6 dans le champ de texte ci-dessus et cliquez sur Afficher les détails. Vous verrez alors l'adresse Zeitcoin associée à votre clé privée. Vous devez également prendre note de votre clé privée au format WIF, car il est plus largement utilisé."
 		},
 
 		"el": {
@@ -7177,7 +7212,7 @@ ninja.translator = {
 			"testneteditionactivated": "ΕΝΕΡΓΗ ΕΚΔΟΣΗ TESTNET",
 			"paperlabelbitcoinaddress": "Διεύθυνση Zeitcoin:",
 			"paperlabelprivatekey": "Προσωπικό Κλειδί (Μορφή εισαγωγής σε πορτοφόλι):",
-			"paperlabelencryptedkey": "Encrypted Private Key (Password required)", //TODO: please translate
+			"paperlabelencryptedkey": "Κρυπτογραφημένο ιδιωτικό κλειδί της (απαιτείται κωδικός)",
 			"bulkgeneratingaddresses": "Δημιουργία διευθύνσεων... ",
 			"brainalertpassphrasetooshort": "Η φράση κωδικός που δώσατε είναι πολύ αδύναμη.\n\n",
 			"brainalertpassphrasewarning": "Προσοχή: Είναι σημαντικό να επιλέξετε μια ισχυρή φράση κωδικό που θα σας προφυλάξει από απόπειρες παραβίασής της τύπου brute force και κλοπή των Zeitcoins σας.",
@@ -7196,7 +7231,7 @@ ninja.translator = {
 			"tagline": "Δημιουργός Διευθύνσεων Zeitcoin, ανοικτού κώδικα Javascript",
 			"generatelabelbitcoinaddress": "Δημιουργία Διεύθυνσης Zeitcoin...",
 			"generatelabelmovemouse": "ΚΟΥΝΗΣΤΕ το ποντίκι τριγύρω για να προσθέσετε επιπλέον τυχαιότητα...",
-			"generatelabelkeypress": "OR type some random characters into this textbox", //TODO: please translate
+			"generatelabelkeypress": "Ή πληκτρολογήστε κάποια τυχαία χαρακτήρες σε αυτό το πλαίσιο κειμένου",
 			"singlewallet": "Απλό Πορτοφόλι",
 			"paperwallet": "Χάρτινο Πορτοφόλι",
 			"bulkwallet": "Πολλαπλά Πορτοφόλια",
@@ -7206,11 +7241,11 @@ ninja.translator = {
 
 			// footer html
 			"footerlabeldonations": "Δωρεές:",
-			"footerlabeltranslatedby": "Μετάφραση: <a href='http://ZeitcoinX.gr/'><b>ZeitcoinX.gr</b></a> 1ZeitcoinxkUPcTFxwMqxhRiPEiQRzYskf6",
+			"footerlabeltranslatedby": "",
 			"footerlabelpgp": "PGP",
 			"footerlabelversion": "ιστορικό εκδόσεων",
 			"footerlabelgithub": "Αποθετήριο GitHub",
-			"footerlabelcopyright1": "Copyright bitaddress.org.",
+			"footerlabelcopyright1": "Copyright CWI-Network.",
 			"footerlabelcopyright2": "Τα πνευματικά δικαιώματα της JavaScript περιλαμβάνονται στον κώδικα.",
 			"footerlabelnowarranty": "Καμία εγγύηση.",
 
@@ -7219,11 +7254,11 @@ ninja.translator = {
 			"singleprint": "Εκτύπωση",
 			"singlelabelbitcoinaddress": "Διεύθυνση Zeitcoin:",
 			"singlelabelprivatekey": "Προσωπικό Κλειδί (Μορφή εισαγωγής σε πορτοφόλι):",
-			"singletip1": "<b>A Zeitcoin wallet</b> is as simple as a single pairing of a Zeitcoin address with it's corresponding Zeitcoin private key. Such a wallet has been generated for you in your web browser and is displayed above.", //TODO: please translate
-			"singletip2": "<b>To safeguard this wallet</b> you must print or otherwise record the Zeitcoin address and private key. It is important to make a backup copy of the private key and store it in a safe location. This site does not have knowledge of your private key. If you are familiar with PGP you can download this all-in-one HTML page and check that you have an authentic version from the author of this site by matching the SHA1 hash of this HTML with the SHA1 hash available in the signed version history document linked on the footer of this site. If you leave/refresh the site or press the Generate New Address button then a new private key will be generated and the previously displayed private key will not be retrievable.	Your Zeitcoin private key should be kept a secret. Whomever you share the private key with has access to spend all the Zeitcoins associated with that address. If you print your wallet then store it in a zip lock bag to keep it safe from water. Treat a paper wallet like cash.", //TODO: please translate
-			"singletip3": "<b>Add funds</b> to this wallet by instructing others to send Zeitcoins to your Zeitcoin address.", //TODO: please translate
-			"singletip4": "<b>Check your balance</b> by going to blockchain.info or https://chainz.cryptoid.info/zeit/ and entering your Zeitcoin address.", //TODO: please translate
-			"singletip5": "<b>Spend your Zeitcoins</b> by going to https://chainz.cryptoid.info/zeit/ and sweep the full balance of your private key into your account at their website. You can also spend your funds by downloading one of the popular Zeitcoin p2p clients and importing your private key to the p2p client wallet. Keep in mind when you import your single key to a Zeitcoin p2p client and spend funds your key will be bundled with other private keys in the p2p client wallet. When you perform a transaction your change will be sent to another Zeitcoin address within the p2p client wallet. You must then backup the p2p client wallet and keep it safe as your remaining Zeitcoins will be stored there. Satoshi advised that one should never delete a wallet.", //TODO: please translate
+			"singletip1": "<B> Ένα πορτοφόλι Zeitcoin </ b> είναι τόσο απλό όσο ένα ενιαίο αντιστοίχιση μιας διεύθυνσης Zeitcoin με αυτό είναι αντίστοιχο ιδιωτικό κλειδί Zeitcoin. Μια τέτοια πορτοφόλι έχει δημιουργηθεί για εσάς στο web browser σας και εμφανίζεται παραπάνω.",
+			"singletip2": "<B> Για να διασφαλιστεί αυτό το πορτοφόλι </ b> θα πρέπει να εκτυπώσετε ή άλλως να καταγράφει τη διεύθυνση Zeitcoin και ιδιωτικό κλειδί. Είναι σημαντικό να κάνετε ένα αντίγραφο ασφαλείας του ιδιωτικού κλειδιού και φυλάξτε το σε ασφαλές μέρος. Αυτός ο δικτυακός τόπος δεν έχει γνώση του ιδιωτικού κλειδιού σας. Εάν είστε εξοικειωμένοι με το PGP μπορείτε να κατεβάσετε αυτή τη σελίδα HTML all-in-one και βεβαιωθείτε ότι έχετε μια αυθεντική έκδοση από τον συγγραφέα αυτού του site που ταιριάζουν με το SHA1 hash αυτού του HTML με το hash SHA1 διαθέσιμο στο υπογεγραμμένο έγγραφο ιστορικό εκδόσεων συνδέονται στο υποσέλιδο αυτής της ιστοσελίδας. Αν αφήσετε / ανανεώσετε τη σελίδα ή πατήστε το κουμπί New Address τότε ένα νέο ιδιωτικό κλειδί θα δημιουργηθεί Δημιουργήστε και το παρελθόν που εμφανίζονται ιδιωτικό κλειδί δεν θα είναι ανακτήσιμη. ιδιωτικό κλειδί Zeitcoin σας θα πρέπει να κρατηθεί μυστικό. Όποιον μοιραστείτε το ιδιωτικό κλειδί με έχει πρόσβαση για να περάσετε όλες τις Zeitcoins που σχετίζονται με τη συγκεκριμένη διεύθυνση. Εάν εκτυπώσετε το πορτοφόλι σας, τότε να το αποθηκεύσετε σε μια τσάντα κλειδαριά φερμουάρ για να κρατήσει ασφαλή από το νερό. Χαρίστε ένα πορτοφόλι χαρτί, όπως τα μετρητά.",
+			"singletip3": "<B> Προσθήκη κεφάλαια </ b> για αυτό το πορτοφόλι, δίνοντας εντολή σε άλλους να στείλετε Zeitcoins στην διεύθυνση Zeitcoin σας.",
+			"singletip4": "<B> Ελέγξτε το υπόλοιπό σας </ b> πηγαίνοντας στο ή chainz.cryptoid.info/ZEIT/ και εισάγοντας τη διεύθυνση Zeitcoin σας.",
+			"singletip5": "<B> Περάστε Zeitcoins σας </ b> πηγαίνοντας στο chainz.cryptoid.info/ZEIT/ και σαρώνουν την πλήρη ισορροπία του ιδιωτικού σας κλειδιού στο λογαριασμό σας στην ιστοσελίδα τους. Μπορείτε επίσης να περάσετε τα χρήματά σας κατεβάζοντας ένα από τα δημοφιλή πελάτες Zeitcoin p2p και εισαγωγής ιδιωτικό κλειδί σας στο πορτοφόλι p2p πελάτη. Κρατήστε στο μυαλό σας όταν εισάγετε μόνο το κλειδί σας σε έναν πελάτη Zeitcoin p2p και να περάσουν τα κεφάλαια κλειδί σας θα πρέπει να συνδυαστεί με άλλα ιδιωτικά κλειδιά στο πορτοφόλι p2p πελάτη. Όταν εκτελείτε μια συναλλαγή η αλλαγή θα σας αποσταλούν σε άλλη διεύθυνση Zeitcoin μέσα στο πορτοφόλι p2p πελάτη. Θα πρέπει, στη συνέχεια, αντίγραφο ασφαλείας το p2p πορτοφόλι του πελάτη και θα τον κρατήσει ασφαλή ως υπόλοιπο Zeitcoins σας θα αποθηκευτεί εκεί. Satoshi ενημέρωσε ότι δεν πρέπει ποτέ να διαγράψετε ένα πορτοφόλι.",
 
 			// paper wallet html
 			"paperlabelhideart": "Απόκρυψη γραφικού;",
@@ -7231,8 +7266,8 @@ ninja.translator = {
 			"paperlabeladdressestogenerate": "Πλήθος διευθύνσεων:",
 			"papergenerate": "Δημιουργία",
 			"paperprint": "Εκτύπωση",
-			"paperlabelBIPpassphrase": "Passphrase:", //TODO: please translate
-			"paperlabelencrypt": "BIP38 Encrypt?", //TODO: please translate
+			"paperlabelBIPpassphrase": "συνθηματική φράση:",
+			"paperlabelencrypt": "BIP38 Κρυπτογράφηση;",
 
 			// bulk wallet html
 			"bulklabelstartindex": "Ξεκίνημα δείκτη:",
@@ -7248,9 +7283,9 @@ ninja.translator = {
 			"bulklabela2li1": "Χρησιμοποιήστε την καρτέλα Πολλαπλά Πορτοφόλια για να δημιουργήσετε έναν μεγάλο αριθμό διευθύνσεων Zeitcoin (10.000+). Αντιγράψτε κι επικολλήστε τη λίστα των χωρισμένων με κόμμα τιμών (CSV) που δημιουργήθηκαν, σε ένα ασφαλές αρχείο στον υπολογιστή σας. Αντιγράψτε το αρχείο που δημιουργήσατε σε μια ασφαλή τοποθεσία.",
 			"bulklabela2li2": "Εισάγετε τις διευθύνσεις Zeitcoin σε έναν πίνακα βάσης δεδομένων στον web server σας. (Μην αντιγράψετε τα προσωπικά κλειδιά ή το πορτοφόλι στον web server γιατί διακινδυνεύετε να σας τα κλέψουν. Μόνο τις διευθύνσεις Zeitcoin που θα εμφανίζονται στους πελάτες.)",
 			"bulklabela2li3": "Παρέχετε στο καλάθι αγορών σας μια επιλογή για πληρωμή σε Zeitcoin. Όταν ο πελάτης επιλέγει να πληρώσει με Zeitcoin, θα εμφανίσετε σε αυτόν μια από τις διευθύνσεις από τη βάση δεδομένων, ως την «προσωπική του διεύθυνση πληρωμής» την οποία θα αποθηκεύσετε μαζί με την εντολή αγοράς.",
-			"bulklabela2li4": "Τώρα χρειάζεται να ειδοποιηθείτε μόλις γίνει η πληρωμή. Ψάξτε στο Google για «Zeitcoin payment notification» κι εγγραφείτε σε τουλάχιστο μία υπηρεσία ειδοποίησης πληρωμής. Υπάρχουν διάφορες υπηρεσίες που θα σας ειδοποιήσουν με Web υπηρεσίες, API, SMS, Email, κλπ. Όταν λάβετε την ειδοποίηση, η οποία μπορεί να αυτοματοποιηθεί προγραμματιστικά, εκτελείτε την εντολή του πελάτη. Για να ελέγξετε χειροκίνητα την πληρωμή μπορείτε να χρησιμοποιήσετε τον Block Explorer. Αντικαταστήστε το THEADDRESSGOESHERE με τη Zeitcoin διεύθυνσή σας. Η επιβεβαίωση της πληρωμής ενδέχεται να διαρκέσει από δέκα λεπτά έως μία ώρα.<br />http://https://chainz.cryptoid.info/zeit//address/THEADDRESSGOESHERE<br /><br />Μπορείτε να δείτε τις συναλλαγές που δεν έχουν επιβεβαιωθεί στο: http://blockchain.info/ <br />Θα πρέπει να δείτε τη συναλλαγή εκεί εντός 30 δευτερολέπτων.",
+			"bulklabela2li4": "Τώρα χρειάζεται να ειδοποιηθείτε μόλις γίνει η πληρωμή. Ψάξτε στο Google για «Zeitcoin payment notification» κι εγγραφείτε σε τουλάχιστο μία υπηρεσία ειδοποίησης πληρωμής. Υπάρχουν διάφορες υπηρεσίες που θα σας ειδοποιήσουν με Web υπηρεσίες, API, SMS, Email, κλπ. Όταν λάβετε την ειδοποίηση, η οποία μπορεί να αυτοματοποιηθεί προγραμματιστικά, εκτελείτε την εντολή του πελάτη. Για να ελέγξετε χειροκίνητα την πληρωμή μπορείτε να χρησιμοποιήσετε τον Block Explorer. Αντικαταστήστε το THEADDRESSGOESHERE με τη Zeitcoin διεύθυνσή σας. Η επιβεβαίωση της πληρωμής ενδέχεται να διαρκέσει από δέκα λεπτά έως μία ώρα.<br />http://chainz.cryptoid.info/ZEIT/address/THEADDRESSGOESHERE<br /><br />Μπορείτε να δείτε τις συναλλαγές που δεν έχουν επιβεβαιωθεί στο: https://chainz.cryptoid.info/ZEIT// <br />Θα πρέπει να δείτε τη συναλλαγή εκεί εντός 30 δευτερολέπτων.",
 			"bulklabela2li5": "Τα Zeitcoins θα συσσωρεύονται με ασφάλεια στην αλυσίδα των μπλοκ. Χρησιμοποιήστε το αρχικό πορτοφόλι που δημιουργήσατε στο βήμα 1 για να τα ξοδέψετε.",
-			
+
 			// brain wallet html
 			"brainlabelenterpassphrase": "Εισάγετε κωδικό: ",
 			"brainlabelshow": "Εμφάνιση;",
@@ -7260,7 +7295,7 @@ ninja.translator = {
 			"brainalgorithm": "Αλγόριθμος: SHA256(κωδικός)",
 			"brainlabelbitcoinaddress": "Διεύθυνση Zeitcoin:",
 			"brainlabelprivatekey": "Προσωπικό Κλειδί (Μορφή εισαγωγής σε πορτοφόλι):",
-			
+
 			// vanity wallet html
 			"vanitylabelstep1": "Βήμα 1 - Δημιουργήστε το «Ζεύγος κλειδιών του Βήματος 1»",
 			"vanitynewkeypair": "Δημιουργία",
@@ -7271,7 +7306,7 @@ ninja.translator = {
 			"vanitylabelstep2calculateyourvanitywallet": "Βήμα 2 - Υπολογίστε το Vanity Πορτοφόλι σας.",
 			"vanitylabelenteryourpart": "Εισάγετε το Προσωπικό Κλειδί που δημιουργήσατε στο Βήμα 1 κι αποθηκεύσατε:",
 			"vanitylabelenteryourpoolpart": "Εισάγετε το Προσωπικό Κλειδί από το Vanity Pool:",
-			"vanitylabelnote1": "[ΣΗΜΕΙΩΣΗ: Το πεδίο αυτό μπορεί να δεχθεί είτε ένα Δημόσιο είτε ένα Προσωπικό Κλειδί.]",
+			"vanitylabelnote1": "[Σ��ΜΕΙΩΣΗ: Το πεδίο αυτό μπορεί να δεχθεί είτε ένα Δημόσιο είτε ένα Προσωπικό Κλειδί.]",
 			"vanitylabelnote2": "[ΣΗΜΕΙΩΣΗ: Το πεδίο αυτό μπορεί να δεχθεί είτε ένα Δημόσιο είτε ένα Προσωπικό Κλειδί.]",
 			"vanitylabelradioadd": "Πρόσθεσε",
 			"vanitylabelradiomultiply": "Πολλαπλασίασε",
@@ -7282,28 +7317,28 @@ ninja.translator = {
 			"vanitylabelnotespublickeyhex": "Παραπάνω είναι το Δημόσιο Κλειδί σε δεκαεξαδική μορφή. ",
 			"vanitylabelprivatekey": "Vanity Προσωπικό Κλειδί (WIF):",
 			"vanitylabelnotesprivatekey": "Παραπάνω είναι το Προσωπικό Κλειδί που θα φορτώσετε στο Πορτοφόλι σας. ",
-			
+
 			// detail wallet html
 			"detaillabelenterprivatekey": "Εισάγετε το Προσωπικό Κλειδί",
 			"detailkeyformats": "Key Formats: WIF, WIFC, HEX, B64, B6, MINI, BIP38",
 			"detailview": "Προβολή λεπτομερειών",
 			"detailprint": "Εκτύπωση",
 			"detaillabelnote1": "Το Zeitcoin Προσωπικό Κλειδί είναι ένας μοναδικός και μυστικός αριθμός που μόνο εσείς πρέπει να γνωρίζετε, ο οποίος μπορεί να κωδικοποιηθεί σε πολλές διαφορετικές μορφές. Εμφανίζουμε παρακάτω τη διεύθυνση Zeitcoin και το Δημόσιο Κλειδί, μαζί με το Προσωπικό Κλειδί, στις πιο δημοφιλείς μορφές  (WIF, WIFC, HEX, B64, MINI).",
-			"detaillabelnote2": "Το Zeitcoin v2.1.1 αποθηκεύει τα Προσωπικά Κλειδιά σε συμπιεσμένη μορφή. Το πρόγραμμα υποστηρίζει επίσης εισαγωγή κι εξαγωγή των Προσωπικών Κλειδιών με τις εντολές importprivkey/dumpprivkey. Η μορφή του εξαγόμενου Προσωπικού Κλειδιού προσδιορίζεται από το αν η διεύθυνση δημιουργήθηκε σε ένα παλιό ή νέο πορτοφόλι.",
+			"detaillabelnote2": "Το Zeitcoin αποθηκεύει τα Προσωπικά Κλειδιά σε συμπιεσμένη μορφή. Το πρόγραμμα υποστηρίζει επίσης εισαγωγή κι εξαγωγή των Προσωπικών Κλειδιών με τις εντολές importprivkey/dumpprivkey. Η μορφή του εξαγόμενου Προσωπικού Κλειδιού προσδιορίζεται από το αν η διεύθυνση δημιουργήθηκε σε ένα παλιό ή νέο πορτοφόλι.",
 			"detaillabelbitcoinaddress": "Διεύθυνση Zeitcoin:",
 			"detaillabelbitcoinaddresscomp": "Συμπιεσμένη Διεύθυνση Zeitcoin:",
 			"detaillabelpublickey": "Δημόσιο Κλειδί (130 χαρακτήρες [0-9A-F]):",
 			"detaillabelpublickeycomp": "Δημόσιο Κλειδί (Συμπιεσμένο, 66 χαρακτήρες [0-9A-F]):",
 			"detaillabelprivwif": "Προσωπικό Κλειδί WIF (51 χαρακτήρες base58, ξεκινάει με",
 			"detaillabelprivwifcomp": "Προσωπικό Κλειδί WIF (Συμπιεσμένο, 52 χαρακτήρες base58, ξεκινάει με",
-			"detailcompwifprefix": "'K' ή 'L'",
+			"detailcompwifprefix": "'T'",
 			"detaillabelprivhex": "Προσωπικό Κλειδί Δεκαεξαδική Μορφή (64 χαρακτήρες [0-9A-F]):",
 			"detaillabelprivb64": "Προσωπικό Κλειδί Base64 (44 χαρακτήρες):",
 			"detaillabelprivmini": "Προσωπικό Κλειδί Μορφή Mini (22, 26 ή 30 χαρακτήρες, ξεκινάει με 'S'):",
 			"detaillabelpassphrase": "BIP38 Κωδικός",
 			"detaildecrypt": "Αποκωδικοποίηση BIP38",
-			"detaillabelq1": "How do I make a wallet using dice? What is B6?", //TODO: please translate
-			"detaila1": "An important part of creating a Zeitcoin wallet is ensuring the random numbers used to create the wallet are truly random. Physical randomness is better than computer generated pseudo-randomness. The easiest way to generate physical randomness is with dice. To create a Zeitcoin private key you only need one six sided die which you roll 99 times. Stopping each time to record the value of the die. When recording the values follow these rules: 1=1, 2=2, 3=3, 4=4, 5=5, 6=0. By doing this you are recording the big random number, your private key, in B6 or base 6 format. You can then enter the 99 character base 6 private key into the text field above and click View Details. You will then see the Zeitcoin address associated with your private key. You should also make note of your private key in WIF format since it is more widely used." //TODO: please translate
+			"detaillabelq1": "Πώς μπορώ να κάνω ένα πορτοφόλι που χρησιμοποιούν ζάρια; Τι είναι Β6;",
+			"detaila1": "Ένα σημαντικό μέρος της δημιουργίας ενός πορτοφολιού Zeitcoin είναι η εξασφάλιση των τυχαίων αριθμών χρησιμοποιείται για να δημιουργήσει το πορτοφόλι είναι πραγματικά τυχαία. Φυσική τυχαιότητα είναι καλύτερο από υπολογιστή που δημιουργούνται ψευδο-τυχαίο. Ο ευκολότερος τρόπος για να δημιουργήσετε φυσική τυχαιότητα είναι με ζάρια. Για να δημιουργήσετε ένα ιδιωτικό κλειδί Zeitcoin χρειάζεστε μόνο ένα έξι όψης πεθαίνουν που κυλάτε 99 φορές. Διακοπή κάθε φορά για να καταγραφεί η αξία της μήτρας. Κατά την εγγραφή οι τιμές ακολουθούν αυτούς τους κανόνες: 1 = 1, 2 = 2, 3 = 3, 4 = 4, 5 = 5, 6 = 0. Με τον τρόπο αυτό θα καταγράφετε το μεγάλο τυχαίο αριθμό, το ιδιωτικό κλειδί σας, σε Β6 ή βάση 6 μορφή. Στη συνέχεια μπορείτε να εισάγετε το ιδιωτικό κλειδί βάσης 99 χαρακτήρων 6 στο παραπάνω πεδίο και κάντε κλικ στο κουμπί Λεπτομέρειες. Θα δείτε στη συνέχεια τη διεύθυνση Zeitcoin που σχετίζεται με το ιδιωτικό κλειδί σας. Θα πρέπει επίσης να σημειώνει το ιδιωτικό κλειδί σας σε μορφή WIF, δεδομένου ότι χρησιμοποιείται ευρύτερα."
 		},
 
 	    "it": {
@@ -7327,15 +7362,15 @@ ninja.translator = {
 			"vanityalertinvalidinputprivatekeysmatch": "Dati inseriti non validi. Entrambe le chiavi private combaciano. Devi inserire due chiavi differenti.",
 
 			// header and menu html
-			"tagline": "Open Source JavaScript Client-Side Zeitcoin Paper Wallet Generator",
+			"tagline": "Open Source Portafoglio JavaScript lato client Zeitcoin Paper Generator",
 			"generatelabelbitcoinaddress": "Generazione Indirizzo Zeitcoin...",
 			"generatelabelmovemouse": "MUOVI il tuo mouse per contribuire alla generazione dei numeri casuali...",
-			"generatelabelkeypress": "OR type some random characters into this textbox", //TODO: please translate
+			"generatelabelkeypress": "O digitare alcuni caratteri casuali in questo campo testo",
 			"singlewallet": "Singolo portafoglio",
-			"paperwallet": "Paper Wallet",
+			"paperwallet": "Portafoglio carta",
 			"bulkwallet": "Portafogli multipli",
-			"brainwallet": "Brain Wallet",
-			"vanitywallet": "Vanity Wallet",
+			"brainwallet": "cervello Portafoglio",
+			"vanitywallet": "vanità Portafoglio",
 			"detailwallet": "Dettagli portafoglio",
 
 			// footer html
@@ -7344,7 +7379,7 @@ ninja.translator = {
 			"footerlabelpgp": "PGP",
 			"footerlabelversion": "Cronologia Versioni",
 			"footerlabelgithub": "Repository GitHub",
-			"footerlabelcopyright1": "Copyright bitaddress.org.",
+			"footerlabelcopyright1": "Copyright CWI-Network.",
 			"footerlabelcopyright2": "Le note di copyright dei file JavaScript sono inclusi nei sorgenti stessi.",
 			"footerlabelnowarranty": "Nessuna garanzia.",
 
@@ -7356,8 +7391,8 @@ ninja.translator = {
 			"singletip1": "<b>Un portafogli Zeitcoin</b> è composto semplicemente da una coppia di valori: l'indirizzo e la sua chiave privata. Un portafogli è stato appena generato sul tuo browser e mostrato sopra.",
 			"singletip2": "<b>Per mettere in sicurezza questo portafogli</b> devi stampare o quantomeno salvare l'indirizzo Zeitcoin e la Chiave privata. È molto importante fare una copia di backup della chiave privata e conservarla in un posto sicuro. Questo sito non conosce la tua chiave privata. Se hai familiarità con PGP, puoi scaricare per intero questa pagina HTML e controllare la sua autentiticità. Puoi confrontare il codice SHA1 della pagina scaricata con il codice firmato dall'autore che trovi nella cronologia delle versioni (in fondo alla pagina). Se abbandoni/aggiorni la pagina web oppure premi il tasto Genera, un nuovo indirizzo sostituirà quello vecchio che non potrà più essere recuperato. La chiave privata dovrebbe essere tenuta segreta, chiunque conosca la chiave privata può avere accesso e spendere i tuoi Zeitcoin. Se stampi il tuo portafogli conservalo in una busta di plastica sigillata per tenerla al riparo dall'acqua. Tratta quanto stampato alla stregua di una banconota.",
 			"singletip3": "<b>Ricevi fondi</b> su questo portafogli mostrando l'indirizzo Zeitcoin per il versamento.",
-			"singletip4": "<b>Controlla il saldo</b> visitando blockchain.info o https://chainz.cryptoid.info/zeit/ cercando il tuo indirizzo Zeitcoin.",
-			"singletip5": "<b>Spendi i tuoi Zeitcoin</b> aprendo un account su blockchain.info o mtgox.com usando la chiave privata. Puoi anche spendere i tuoi Zeitcoin scaricando il popolare client p2p ed importando in esso il portafogli. Tieni presente che quando importi una chiave nel client p2p, nel momento in cui spendi le monete, la chiave viene raggruppata insieme alle altre presenti nel programma con i restanti Zeitcoin. Quando esegui una transazione gli spiccioli verranno invitati verso un altro indirizzo all'interno del tuo portafogli gestito dal client p2p. Quindi dovresti tenere un backup del portafogli contenuto nel client p2p e tenere questo in un posto sicuro fin tanto terrai dei Zeitcoin lì. Satoshi consiglia di non cancellare mai un portafogli. ",
+			"singletip4": "<b>Controlla il saldo</b> visitando o chainz.cryptoid.info/ZEIT/ cercando il tuo indirizzo Zeitcoin.",
+			"singletip5": "<b>Spendi i tuoi Zeitcoin</b> aprendo un account su o  usando la chiave privata. Puoi anche spendere i tuoi Zeitcoin scaricando il popolare client p2p ed importando in esso il portafogli. Tieni presente che quando importi una chiave nel client p2p, nel momento in cui spendi le monete, la chiave viene raggruppata insieme alle altre presenti nel programma con i restanti Zeitcoin. Quando esegui una transazione gli spiccioli verranno invitati verso un altro indirizzo all'interno del tuo portafogli gestito dal client p2p. Quindi dovresti tenere un backup del portafogli contenuto nel client p2p e tenere questo in un posto sicuro fin tanto terrai dei Zeitcoin lì. Satoshi consiglia di non cancellare mai un portafogli. ",
 
 			// paper wallet html
 			"paperlabelhideart": "Senza grafica?",
@@ -7383,7 +7418,7 @@ ninja.translator = {
 			"bulklabela2li1": "Usa la funzione \"Portafogli multipli\" per generare una grande quantità di indirizzi Zeitcoin (10,000+). Copia e incolla la lista generata in formato CSV (campi separati da virgola) su un file, al sicuro nel tuo computer. Fai una copia di backup di questo file e mettilo un posto sicuro.",
 			"bulklabela2li2": "Importa gli indirizzi Zeitcoin in una tabella del database sul tuo web server. (Non importare i portafogli/chiavi private sul web server, altrimenti corri il rischio che rubino i tuoi Zeitcoin con l'hacking. Usa gli indirizzi Zeitcoin così come verranno mostrati ai tuoi clienti.)",
 			"bulklabela2li3": "Fornisci una opzione nel carrello del tuo sito web per pagare in Zeitcoin. Quando il cliente sceglie di pagare in Zeitcoin, gli mostrerai un indirizzo dal tuo database come \"indirizzo di pagamento\" e conserverai questo stesso indirizzo insieme ai dati dell'ordine.",
-			"bulklabela2li4": "Ora hai bisogno di notificare l'arrivo del pagamento. Cerca su Google \"notifiche pagamento Zeitcoin\" ed iscriviti ad almeno un servizio di notifica. Esistono diversi servizi che possono notificare in vari modi come Web Services, API, SMS, Email, etc. Una volta ricevuta la notifica, la quale può essere automatizzata con la programmazione, puoi processare l'ordine del cliente. Per verificare manualmente se l'ordine è davvero arrivato puoi usare un block explorer. Sostituisci INDIRIZZODACONTROLLARE con l'indirizzo Zeitcoin da controllare. Possono volerci dai 10 fino a 60 minuti per fare in modo che una transazione venga confermata.<br>https://chainz.cryptoid.info/zeit//address/INDIRIZZODACONTROLLARE<br><br>Le transazioni non confermate possono essere visionate su: http://blockchain.info/ <br>Dovresti vedere la transazione entro 30 secondi.",
+			"bulklabela2li4": "Ora hai bisogno di notificare l'arrivo del pagamento. Cerca su Google \"notifiche pagamento Zeitcoin\" ed iscriviti ad almeno un servizio di notifica. Esistono diversi servizi che possono notificare in vari modi come Web Services, API, SMS, Email, etc. Una volta ricevuta la notifica, la quale può essere automatizzata con la programmazione, puoi processare l'ordine del cliente. Per verificare manualmente se l'ordine è davvero arrivato puoi usare un block explorer. Sostituisci INDIRIZZODACONTROLLARE con l'indirizzo Zeitcoin da controllare. Possono volerci dai 10 fino a 60 minuti per fare in modo che una transazione venga confermata.<br>http://chainz.cryptoid.info/ZEIT/address/INDIRIZZODACONTROLLARE<br><br>Le transazioni non confermate possono essere visionate su: https://chainz.cryptoid.info/ZEIT// <br>Dovresti vedere la transazione entro 30 secondi.",
 			"bulklabela2li5": "In questo modo i Zeitcoin transiteranno nella blockchain in tutta sicurezza. Usa il portafogli creato nel Passo 1 per spendere i Zeitcoin.",
 
 			// brain wallet html
@@ -7417,30 +7452,30 @@ ninja.translator = {
 			"vanitylabelnotespublickeyhex": "Quella sopra è la Chiave Pubblica nel formato esadecimale. ",
 			"vanitylabelprivatekey": "Chiave privata del Vanity Wallet (WIF):",
 			"vanitylabelnotesprivatekey": "Quella sopra è la Chiave Privata nel formato esadecimale.  ",
-			
+
 			// detail wallet html
 			"detaillabelenterprivatekey": "Inserisci la Chiave Privata",
 			"detailkeyformats": "Key Formats: WIF, WIFC, HEX, B64, B6, MINI, BIP38",
 			"detailview": "Mostra Dettagli",
 			"detailprint": "Stampa",
 			"detaillabelnote1": "La tua Chiave privata Zeitcoin è rappresentata da un numero segreto, unico al mondo, che dovresti conoscere soltanto tu. Può essere codificato in molti formati differenti. Di seguito verrà mostrato l'indirizzo Zeitcoin e la chiave pubblica, con la corrispondente chiave privata, nei più diffusi formati di codifica (WIF, WIFC, HEX, B64, MINI).",
-			"detaillabelnote2": "Il client Zeitcoin, dalla versione v0.6, memorizza le chiavi pubbliche in formato compresso. Il programma ora supporta l'importazione e l'esportazione delle chiavi private attraverso importprivkey/dumpprivkey. Il formato con cui viene esportata la chiave privata dipende se l'indirizzo generato è stato creato con il nuovo o vecchio portafogli.",
+			"detaillabelnote2": "Il client Zeitcoin, memorizza le chiavi pubbliche in formato compresso. Il programma ora supporta l'importazione e l'esportazione delle chiavi private attraverso importprivkey/dumpprivkey. Il formato con cui viene esportata la chiave privata dipende se l'indirizzo generato è stato creato con il nuovo o vecchio portafogli.",
 			"detaillabelbitcoinaddress": "Indirizzo Zeitcoin",
 			"detaillabelbitcoinaddresscomp": "Indirizzo Zeitcoin compresso",
 			"detaillabelpublickey": "Chiave pubblica (130 caratteri [0-9A-F]):",
 			"detaillabelpublickeycomp": "Chiave pubblica (compressa, 66 caratteri [0-9A-F]):",
 			"detaillabelprivwif": "Chiave privata WIF<br>51 caratteri base58, inizia per a",
 			"detaillabelprivwifcomp": "Chiave privata WIF compressa<br>52 caratteri base58, inizia per 'a'",
-			"detailcompwifprefix": "'K' o 'L'",
+			"detailcompwifprefix": "'T'",
 			"detaillabelprivhex": "Chiave privata formato esadecimale (64 caratteri [0-9A-F]):",
 			"detaillabelprivb64": "Chiave privata Base64 (44 caratteri):",
 			"detaillabelprivmini": "Chiave privata formato mini (22, 26 or 30 caratteri, inizia per 'S'):",
 			"detaillabelpassphrase": "Inserisci passphrase BIP38",
 			"detaildecrypt": "Decripta BIP38",
-			"detaillabelq1": "How do I make a wallet using dice? What is B6?", //TODO: please translate
-			"detaila1": "An important part of creating a Zeitcoin wallet is ensuring the random numbers used to create the wallet are truly random. Physical randomness is better than computer generated pseudo-randomness. The easiest way to generate physical randomness is with dice. To create a Zeitcoin private key you only need one six sided die which you roll 99 times. Stopping each time to record the value of the die. When recording the values follow these rules: 1=1, 2=2, 3=3, 4=4, 5=5, 6=0. By doing this you are recording the big random number, your private key, in B6 or base 6 format. You can then enter the 99 character base 6 private key into the text field above and click View Details. You will then see the Zeitcoin address associated with your private key. You should also make note of your private key in WIF format since it is more widely used." //TODO: please translate
+			"detaillabelq1": "Come faccio a fare un portafogli con i dadi? Che cosa è B6?",
+			"detaila1": "Una parte importante della creazione di un portafoglio Zeitcoin sta garantendo i numeri casuali utilizzati per creare il portafoglio sono veramente casuale. casualità fisica è migliore rispetto generato dal computer pseudo-casualità. Il modo più semplice per generare casualità fisica è con i dadi. Per creare una chiave privata Zeitcoin solo avete bisogno di uno a sei facce dado che si tira 99 volte. Arresto ogni volta per registrare il valore dello stampo. Quando si registrano i valori seguono queste regole: 1 = 1, 2 = 2, 3 = 3, 4 = 4, 5 = 5, 6 = 0. In questo modo si sta registrando il grande numero casuale, la chiave privata, in formato B6 o base 6. È quindi possibile immettere la chiave privata di base 99 carattere 6 nel campo di testo sopra e fare clic su Visualizza dettagli. Si vedrà, quindi l'indirizzo Zeitcoin associato con la chiave privata. Si dovrebbe anche prendere nota della chiave privata in formato WIF dal momento che è più ampiamente usato."
 	    },
-	    
+
 	    "de": {
 			// javascript alerts or messages
 			"testneteditionactivated": "TESTNET AKTIVIERT",
@@ -7465,7 +7500,7 @@ ninja.translator = {
 			"tagline": "Offener, client-seitiger Zeitcoin-Paper-Wallet-Generator in JavaScript",
 			"generatelabelbitcoinaddress": "Erstelle Zeitcoin-Wallet...",
 			"generatelabelmovemouse": "Bewege deine Maus umher, um die Zuf&auml;lligkeit zu erh&ouml;hen...",
-			"generatelabelkeypress": "OR type some random characters into this textbox", //TODO: please translate
+			"generatelabelkeypress": "Of type een aantal willekeurige karakters in dit tekstvak",
 			"singlewallet": "Einzelnes Wallet",
 			"paperwallet": "Papier-Wallet",
 			"bulkwallet": "Massen-Wallet",
@@ -7475,11 +7510,11 @@ ninja.translator = {
 
 			// footer html
 			"footerlabeldonations": "Spenden:",
-			"footerlabeltranslatedby": "&Uuml;bersetzung: 1EWPcmYmU8MamRUYMFWQa1r7A2Tskz78t5",
+			"footerlabeltranslatedby": "",
 			"footerlabelpgp": "PGP",
 			"footerlabelversion": "Versionsgeschichte",
 			"footerlabelgithub": "GitHub-Repository",
-			"footerlabelcopyright1": "Copyright bitaddress.org.",
+			"footerlabelcopyright1": "Copyright CWI-Network.",
 			"footerlabelcopyright2": "JavaScript-Copyrights sind im Quelltext enthalten.",
 			"footerlabelnowarranty": "Ohne Gew&auml;hr.",
 
@@ -7491,8 +7526,8 @@ ninja.translator = {
 			"singletip1": "<b>Ein Zeitcoin-Wallet </b>(Geldb&ouml;rse) ist nichts anderes als eine Zeitcoin-Adresse (&ouml;ffentlicher Schl&uuml;ssel) und der zu ihr geh&ouml;rende private Schl&uuml;ssel. Oben findest du ein solches, gerade f&uuml;r dich erstelltes Wallet, bestehend aus den beiden Zeichenketten. Die QR-Codes dienen lediglich der Vereinfachung und enthalten kodiert die Adresse bzw. den privaten Schl&uuml;ssel.",
 			"singletip2": "<b>Um dieses Wallet zu sch&uuml;tzen,</b> musst du es entweder ausdrucken oder anderweitig die Zeitcoin-Adresse und den privaten Schl&uuml;ssel sichern. Fertige auf jeden Fall eine Kopie des privaten Schl&uuml;ssels an und bewahre sie an einem sicheren Ort auf. Der private Schl&uuml;ssel liegt nur lokal auf deinem Rechner vor und wurde nicht ins Internet &uuml;bertragen. Falls du dich mit PGP auskennst, kannst du dir diese all-in-one HTML-Seite herunterladen. Um zu &uuml;berpr&uuml;fen, ob die heruntergeladene Version authentisch ist, kannst du den SHA1-Hash dieser Seite mit dem SHA1-Hash in der signierten Versionsgeschichte am unteren Ende dieser Seite abgleichen. Wenn du diese Seite verl&auml;sst, sie neul&auml;dst bzw. den \"Neues Wallet erstellen\"-Button dr&uuml;ckst, wird ein neues Wallet erstellt und das vorherige wird nicht mehr abrufbar sein. Du solltest deinen privaten Schl&uuml;ssel geheim halten. Wer den privaten Schl&uuml;ssel hat, kann damit auf alle im Wallet befindlichen Zeitcoin zugreifen und sie nach Belieben ausgeben. Behandle dein gedrucktes Wallet wie echtes Geld!",
 			"singletip3": "Du kannst <b>Guthaben</b> zu deinem Wallet <b>hinzuf&uuml;gen</b>, indem du genau wie bei anderen &Uuml;berweisungen Zeitcoins an die Zeitcoin-Adresse deines Wallets schickst.",
-			"singletip4": "<b>&Uuml;berpr&uuml;fe dein Guthaben,</b> indem du deine Zeitcoin-Adresse auf blockchain.info bzw. https://chainz.cryptoid.info/zeit/ eingibst.",
-			"singletip5": "Du kannst deine <b>Zeitcoins ausgeben</b>, indem du das gesamte mit deinem privaten Schl&uuml;ssel verbundene Guthaben auf deinen Account bei blockchain.info bzw. mtgox.com &uuml;bertr&auml;gst. Alternativ kannst du dir ein Zeitcoinprogramm herunterladen und deinen privaten Schl&uuml;ssel in dieses importieren. Beachte dabei aber, dass, sobald du Zeitcoins mit dem Programm sendest, dein privater Schl&uuml;ssel mit den anderen privaten Schl&uuml;sseln, die vom Programm bereitgestellt werden, verbunden wird. Bei einer &Uuml;berweisung wird etwas R&uuml;ckgeld an eine der Zeitcoin-Adressen des Programms geschickt. Deswegen musst du, um tats&auml;chlich dein gesamtes Guthaben zu sichern, ein Backup vom gesamten Wallet des Programms, das nun auch deinen importierten privaten Schl&uuml;ssel enth&auml;lt, anfertigen. Satoshi r&auml;t, dass man unter keinen Umst&auml;nden ein Wallet l&ouml;schen sollte.", 
+			"singletip4": "<b>&Uuml;berpr&uuml;fe dein Guthaben,</b> indem du deine Zeitcoin-Adresse auf bzw. chainz.cryptoid.info/ZEIT/ eingibst.",
+			"singletip5": "Du kannst deine <b>Zeitcoins ausgeben</b>, indem du das gesamte mit deinem privaten Schl&uuml;ssel verbundene Guthaben auf deinen Account bei bzw.  &uuml;bertr&auml;gst. Alternativ kannst du dir ein Zeitcoinprogramm herunterladen und deinen privaten Schl&uuml;ssel in dieses importieren. Beachte dabei aber, dass, sobald du Zeitcoins mit dem Programm sendest, dein privater Schl&uuml;ssel mit den anderen privaten Schl&uuml;sseln, die vom Programm bereitgestellt werden, verbunden wird. Bei einer &Uuml;berweisung wird etwas R&uuml;ckgeld an eine der Zeitcoin-Adressen des Programms geschickt. Deswegen musst du, um tats&auml;chlich dein gesamtes Guthaben zu sichern, ein Backup vom gesamten Wallet des Programms, das nun auch deinen importierten privaten Schl&uuml;ssel enth&auml;lt, anfertigen. Satoshi r&auml;t, dass man unter keinen Umst&auml;nden ein Wallet l&ouml;schen sollte.",
 
 			// paper wallet html
 			"paperlabelhideart": "Grafische Gestaltung ausblenden?",
@@ -7512,12 +7547,12 @@ ninja.translator = {
 			"bulklabelcsv": "Comma Separated Values (CSV):",
 			"bulklabelformat": "Index, Adresse, privater Schl&uuml;ssel (WIF)",
 			"bulklabelq1": "Warum sollte ich ein Massen-Wallet auf meiner Webseite einsetzen?",
-			"bulka1": "Bisher musste immer der offizielle Zeitcoin-Daemon, Zeitcoind, auf dem Server installiert sein, damit man Zeitcoins auf seiner Webseite annehmen konnte. Viele Webhoster blockieren die Installation von Zeitcoind. Au&szlig;erdem m&uuml;ssen die privaten Schl&uuml;ssel auf dem Server liegen, damit Zeitcoind zeittioniert, obwohl sie dort einfacher gestohlen werden k&ouml;nnen. Mit einem Massen-Wallet brauchst du nur noch die Zeitcoin-Adressen und nicht mehr zus&auml;tzlich die privaten Schl&uuml;ssel hochladen. Dadurch musst du dir keine Sorgen mehr machen, dass dein Zeitcoin-Wallet gestohlen werden k&ouml;nnte, wenn unberechtigt in deinen Server eingedrungen wird.",
+			"bulka1": "Bisher musste immer der offizielle Zeitcoin-Daemon, Zeitcoind, auf dem Server installiert sein, damit man Zeitcoins auf seiner Webseite annehmen konnte. Viele Webhoster blockieren die Installation von Zeitcoind. Au&szlig;erdem m&uuml;ssen die privaten Schl&uuml;ssel auf dem Server liegen, damit Zeitcoind funktioniert, obwohl sie dort einfacher gestohlen werden k&ouml;nnen. Mit einem Massen-Wallet brauchst du nur noch die Zeitcoin-Adressen und nicht mehr zus&auml;tzlich die privaten Schl&uuml;ssel hochladen. Dadurch musst du dir keine Sorgen mehr machen, dass dein Zeitcoin-Wallet gestohlen werden k&ouml;nnte, wenn unberechtigt in deinen Server eingedrungen wird.",
 			"bulklabelq2": "Wie kann ich ein Massen-Wallet in meine Webseite integrieren?",
 			"bulklabela2li1": "Erstelle mithilfe dieser Seite ganz viele Zeitcoin-Adressen (10.000+). Kopiere die CSV-Liste in eine sichere Textdatei auf deinem Computer. Fertige ein Backup dieser Datei an und speichere sie an einem sicheren Ort.",
 			"bulklabela2li2": "Importiere die Zeitcoin-Adressen in eine Datenbank auf deinem Server. (Lege nur die Zeitcoin-Adressen, nicht aber die privaten Schl&uuml;ssel auf deinem Server ab!)",
 			"bulklabela2li3": "Biete deinen Kunden auf deiner Webseite Zeitcoin als Zahlungsm&ouml;glichkeit an. Wenn ein Kunde mit Zeitcoin zahlen m&ouml;chte, zeige ihm eine der Adressen aus deiner Datenbank als Zahlungsadresse an und speichere sie mit seiner Bestellung.",
-			"bulklabela2li4": "Jetzt musst du dir den Zahlungseingang best&auml;tigen lassen. Google \"Zeitcoin payment notification\" und melde dich bei mindestens einem solchen Anbieter an. Es gibt verschiedene Anbieter, die dich via Web, API, SMS, E-Mail etc. &uuml;ber erfolgte Transaktionen informieren k&ouml;nnen. Sobald du die Eingangsbest&auml;tigung erh&auml;lst, kannst du automatisch die Bestellung abwickeln lassen. Um selber zu schauen, ob eine Zahlung erfolgt ist, kannst du Block Explorer nutzen. Ersetze ZeitcoinADRESSE durch die Zeitcoin-Adresse, die du pr&uuml;fen m&ouml;chtest. Es dauert von zehn Minuten bis zu einer Stunde, um Transaktionen zu best&auml;tigen. <br />https://chainz.cryptoid.info/zeit//address/ZeitcoinADRESSE<br /> <br />Unbest&auml;tigte Transaktionen findest du hier: http://blockchain.info/ <br /> S&auml;mtliche Transaktionen sollten dort innerhalb von 30 Sekunden auftauchen.",
+			"bulklabela2li4": "Jetzt musst du dir den Zahlungseingang best&auml;tigen lassen. Google \"Zeitcoin payment notification\" und melde dich bei mindestens einem solchen Anbieter an. Es gibt verschiedene Anbieter, die dich via Web, API, SMS, E-Mail etc. &uuml;ber erfolgte Transaktionen informieren k&ouml;nnen. Sobald du die Eingangsbest&auml;tigung erh&auml;lst, kannst du automatisch die Bestellung abwickeln lassen. Um selber zu schauen, ob eine Zahlung erfolgt ist, kannst du Block Explorer nutzen. Ersetze ZeitcoinADRESSE durch die Zeitcoin-Adresse, die du pr&uuml;fen m&ouml;chtest. Es dauert von zehn Minuten bis zu einer Stunde, um Transaktionen zu best&auml;tigen. <br />http://chainz.cryptoid.info/ZEIT/address/ZeitcoinADRESSE<br /> <br />Unbest&auml;tigte Transaktionen findest du hier: https://chainz.cryptoid.info/ZEIT// <br /> S&auml;mtliche Transaktionen sollten dort innerhalb von 30 Sekunden auftauchen.",
 			"bulklabela2li5": "Deine Zeitcoins werden sicher in die Block-Chain aufgenommen. Mithilfe des urspr&uuml;nglichen Wallets vom ersten Schritt kannst du sie ausgeben.",
 
 			// brain wallet html
@@ -7554,25 +7589,25 @@ ninja.translator = {
 
 			// detail wallet html
 			"detaillabelenterprivatekey": "Privaten Schl&uuml;ssel eingeben:",
-			"detailkeyformats": "Unterstützte Formate: WIF, WIFC, HEX, B64, B6, MINI, BIP38",	
+			"detailkeyformats": "Unterstützte Formate: WIF, WIFC, HEX, B64, B6, MINI, BIP38",
 			"detailview": "Details anzeigen",
 			"detailprint": "Drucken",
 			"detaillabelnote1": "Der private Schl&uuml;ssel deines Wallets ist eine geheime, einzigartige Zeichenfolge, die nur du kennst. Er kann auf mehrer Arten dargestellt werden. Unten findest du die zugeh&ouml;rige Zeitcoin-Adresse bzw. &ouml;ffentlichen Schl&uuml;ssel sowie den privaten Schl&uuml;ssel in den verbreitetsten Formaten.",
-			"detaillabelnote2": "Ab Version 0.6 speichert Zeitcoin-qt &ouml;ffentliche Schl&uuml;ssel komprimiert. Das Programm unterst&uuml;tzt nun auch den Import und Export von privaten Schl&uuml;sseln mit importprivkey/dumpprivkey. Das Format des exportierten privaten Schl&uuml;ssels h&auml;ngt davon ab, ob die Adresse in einem alten oder neuen Wallet erstellt wurde.",
+			"detaillabelnote2": "Ab speichert Zeitcoin-qt &ouml;ffentliche Schl&uuml;ssel komprimiert. Das Programm unterst&uuml;tzt nun auch den Import und Export von privaten Schl&uuml;sseln mit importprivkey/dumpprivkey. Das Format des exportierten privaten Schl&uuml;ssels h&auml;ngt davon ab, ob die Adresse in einem alten oder neuen Wallet erstellt wurde.",
 			"detaillabelbitcoinaddress": "Zeitcoin-Adresse:",
 			"detaillabelbitcoinaddresscomp": "Komprimierte Zeitcoin-Adresse:",
 			"detaillabelpublickey": "&Ouml;ffentlicher Schl&uuml;ssel (130 Zeichen [0-9A-F]):",
 			"detaillabelpublickeycomp": "Komprimierter &ouml;ffentlicher Schl&uuml;ssel (66 Zeichen [0-9A-F]):",
 			"detaillabelprivwif": "Privater Schl&uuml;ssel WIF  <br /> 51 Zeichen in base58, beginnt mit",
 			"detaillabelprivwifcomp": "Komprimierter privater Schl&uuml;ssel WIF <br /> 52 Zeichen in base58, beginnt mit",
-			"detailcompwifprefix": "'K' oder 'L'",
+			"detailcompwifprefix": "'T'",
 			"detaillabelprivhex": "Privater Schl&uuml;ssel in Hexadezimal (64 Zeichen [0-9A-F]):",
 			"detaillabelprivb64": "Privater Schl&uuml;ssel in base64 (44 Zeichen):",
 			"detaillabelprivmini": "Privater Schl&uuml;ssel in mini (22, 26 oder 30 Zeichen, beginnt mit 'S'):",
 			"detaillabelpassphrase": "Passwort f&uuml;r BIP38 eingeben",
 			"detaildecrypt": "Entschl&uuml;sseln",
 			"detaillabelq1": "Wie erstelle ich ein Wallet mithilfe eines Würfels? Was versteht man unter B6?",
-			"detaila1": "Beim Erstellen eines Zeitcoin-Wallets sollten die dafür genutzten Zufallszahlen auch tatsächlich zufällig sein. Ein echter Würfel liefert wesentlich zufälligere Zahlen als ein Computer. Um einen privaten Schlüssel zu erstellen, sind lediglich 99 Würfe mit einem normalen Würfel nötig. Nach jedem Wurf solltest du die Augenzahl nach folgendem Muster aufschreiben: 1-\>1, 2-\>2, 3-\>3, 4-\>4, 5-\>5, 6-\>0. Die so entstandene Zufallszahl stellt deinen privaten Schlüssel in B6 bzw. zur Basis 6 dar. Diesen 99 Zeichen langen Basis-6-Schlüssel kannst du im obigen Eingabefeld eingeben und dir dann die zugehörigen Details anzeigen lassen. U.a. wird dir die zu deinem privaten Schlüssel gehörende Zeitcoin-Adresse angezeigt. Es wäre ratsam, sich die ebenfalls berechnete WIF-Version des privaten Schlüssels zu notieren, weil sie häufiger genutzt wird."		
+			"detaila1": "Beim Erstellen eines Zeitcoin-Wallets sollten die dafür genutzten Zufallszahlen auch tatsächlich zufällig sein. Ein echter Würfel liefert wesentlich zufälligere Zahlen als ein Computer. Um einen privaten Schlüssel zu erstellen, sind lediglich 99 Würfe mit einem normalen Würfel nötig. Nach jedem Wurf solltest du die Augenzahl nach folgendem Muster aufschreiben: 1-\>1, 2-\>2, 3-\>3, 4-\>4, 5-\>5, 6-\>0. Die so entstandene Zufallszahl stellt deinen privaten Schlüssel in B6 bzw. zur Basis 6 dar. Diesen 99 Zeichen langen Basis-6-Schlüssel kannst du im obigen Eingabefeld eingeben und dir dann die zugehörigen Details anzeigen lassen. U.a. wird dir die zu deinem privaten Schlüssel gehörende Zeitcoin-Adresse angezeigt. Es wäre ratsam, sich die ebenfalls berechnete WIF-Version des privaten Schlüssels zu notieren, weil sie häufiger genutzt wird."
 		},
 
 		"cs": {
@@ -7609,11 +7644,11 @@ ninja.translator = {
 
 			// footer html
 			"footerlabeldonations": "Příspěvek:",
-			"footerlabeltranslatedby": "Překlad: 1LNF2anjkH3HyRKrhMzVYqYRKFeDe2TJWz",
+			"footerlabeltranslatedby": "",
 			"footerlabelpgp": "PGP",
 			"footerlabelversion": "Historie verzí",
 			"footerlabelgithub": "GitHub Repository",
-			"footerlabelcopyright1": "Copyright bitaddress.org.",
+			"footerlabelcopyright1": "Copyright CWI-Network.",
 			"footerlabelcopyright2": "Copyright JavaScriptu je uveden ve zdrojovém kódu.",
 			"footerlabelnowarranty": "Bez záruky.",
 
@@ -7625,8 +7660,8 @@ ninja.translator = {
 			"singletip1": "<b>Zeitcoin peněženka</b> je jednoduchý pár Zeitcoin adresy s přidruženým soukromým klíčem. Taková peněženka byla právě vytvořena ve vašem prohlížeči a zobrazena výše.",
 			"singletip2": "<b>Pro zabezpečení této peněženky</b> musíte tuto Zeitcoin adresu a soukromý klíč vytisknout a nebo jinak poznamenat. Je důležité provést zálohu soukromého klíče a jeho uschování na bezpečném místě. Tato webová stránka nemá žádné informace o vašem soukromém klíči. Pokud ovládáte PGP, můžete celou tuto stránku stáhnout v jednom HTML souboru a ověřit její pravost srovnáním SHA1 hashe s podepsaným dokumentem historie verzí. Odkaz naleznete v patičce této stránky. Pokud opustíte či obnovíte tuto stránku nebo kliknete na 'Vytvořit novou adresu' dojde k vygenerování nového soukromého klíče a předtím zobrazený klíč bude ztracen. Váš soukromý klíč musíte uchovat v tajnosti. Každý kdo má tento klíč k dispozici může utratit všechny peníze v této peněžence. Pokud budete peněženku tisknout, uzavřete ji do nepropustného obalu nebo ji zalaminujte. Tím zabráníte jejímu poškození vodou. Chovejte se k této peněžence jako k normálním bankovkám.",
 			"singletip3": "<b>Pro vložení</b> peněz do této peněženky stačí zaslat peníze na Zeitcoin adresu.",
-			"singletip4": "<b>Zkontrolovat zůstatek</b> můžete na webové stránce blockchain.info nebo https://chainz.cryptoid.info/zeit/ po zadání Zeitcoin adresy.",
-			"singletip5": "<b>Utratit Zeitcoiny</b> můžete pomocí blockchain.info či mtgox.com načtením celého zůstatku pomocí soukromého klíče do vašeho účtu. Utratit zůstatek můžete také pomocí jednoho z P2P Zeitcoin klientů naimportováním soukromého klíče. Myslete na to, že importem klíče do klienta se stane součástí jeho peněženky. Pokud převedete někomu peníze, nespotřebovaný zůstatek se zašle na jinou Zeitcoin adresu uvedenou v P2P klienta. Tuto novou adresu musíte vyzálohovat a udržovat v bezpečí. Satoshi doporučuje, že by nikdo nikdy neměl mazat peněženku.",
+			"singletip4": "<b>Zkontrolovat zůstatek</b> můžete na webové stránce nebo chainz.cryptoid.info/ZEIT/ po zadání Zeitcoin adresy.",
+			"singletip5": "<b>Utratit Zeitcoiny</b> můžete pomocí či  načtením celého zůstatku pomocí soukromého klíče do vašeho účtu. Utratit zůstatek můžete také pomocí jednoho z P2P Zeitcoin klientů naimportováním soukromého klíče. Myslete na to, že importem klíče do klienta se stane součástí jeho peněženky. Pokud převedete někomu peníze, nespotřebovaný zůstatek se zašle na jinou Zeitcoin adresu uvedenou v P2P klienta. Tuto novou adresu musíte vyzálohovat a udržovat v bezpečí. Satoshi doporučuje, že by nikdo nikdy neměl mazat peněženku.",
 			"singleshare": "SDÍLEJTE",
 			"singlesecret": "SOUKROMÉ",
 
@@ -7653,7 +7688,7 @@ ninja.translator = {
 			"bulklabela2li1": "Předgenerujte si velké množství Zeitcoin adres (10 000+). Okopírujte si CSV seznam do souboru na bezpečné místo ve vašem počítači. Poté jej vyzálohujte na bezpečné místo.",
 			"bulklabela2li2": "Naimportujte Zeitcoin adresy do databáze na vašem webovém serveru. Neimportujte soukromé klíče, abyste zabránili krádeži vašich peněz.",
 			"bulklabela2li3": "Umožněte na vaší stránce platbu pomocí Zeitcoinu. Stačí vždy zobrazit jednu z vygenerovaných adres a uložit si ji u objednávky.",
-			"bulklabela2li4": "Nyní je již pouze potřeba zařídit notifikace o příchozí transakci. Zadejte do Google \"Zeitcoin payment notification\" a využijte jednu z existujících služeb. Existuje jich několik a podporují např. Web Services, API, SMS, Email, apod. Notifikaci můžete zpracovat automaticky. Pro ruční kontrolu, zda peníze přišly, stačí použít Block Explorer. Nahraďte SEMPATŘÍADRESA Zeitcoin adresou, kterou chcete zkontrolovat. Potvrzení transkace může trvat od 10 minut do jedné hodiny.<br />/address/SEMPATŘÍADRESA<br /><br />Nepotvrzené tansakce je možné zkontrolovat na: http://blockchain.info/ <br />Většinou se zde zobrazí do 30 sekund.",
+			"bulklabela2li4": "Nyní je již pouze potřeba zařídit notifikace o příchozí transakci. Zadejte do Google \"Zeitcoin payment notification\" a využijte jednu z existujících služeb. Existuje jich několik a podporují např. Web Services, API, SMS, Email, apod. Notifikaci můžete zpracovat automaticky. Pro ruční kontrolu, zda peníze přišly, stačí použít Block Explorer. Nahraďte SEMPATŘÍADRESA Zeitcoin adresou, kterou chcete zkontrolovat. Potvrzení transkace může trvat od 10 minut do jedné hodiny.<br />https://chainz.cryptoid.info/ZEIT/<br /><br />Nepotvrzené tansakce je možné zkontrolovat na: https://chainz.cryptoid.info/ZEIT/ <br />Většinou se zde zobrazí do 30 sekund.",
 			"bulklabela2li5": "Zeitcoiny budou bezpečně převedeny v řetězci bloků. Pro spotřebování stačí kdykoliv naimportovat soubor vygenerovaný v prvním kroku.",
 
 			// brain wallet html
@@ -7693,15 +7728,15 @@ ninja.translator = {
 			"detailkeyformats": "Podporované formáty: WIF, WIFC, HEX, B64, B6, MINI, BIP38",
 			"detailview": "Zobrazit detail",
 			"detailprint": "Tisk",
-			"detaillabelnote1": "",
-			"detaillabelnote2": "",
+			"detaillabelnote1": "Váš Zeitcoin Soukromý klíč je jedinečný tajné číslo, které jen vy víte . To může být zakódován v řadě různých formátů . Níže ukazujeme Zeitcoin adresy a veřejný klíč, který odpovídá soukromý klíč , stejně jako váš soukromý klíč z nejpopulárnějších kódování formátů ( wif , WIFC , HEX , B64 , MINI ) .",
+			"detaillabelnote2": "Zeitcoin ukládá veřejné klíče v komprimovaném formátu . Klient nyní také podporuje import a export privátních klíčů s importprivkey / dumpprivkey . Formát exportovaného soukromého klíče je dána tím, zda je adresa byla vytvořena ve staré nebo nové peněženky.",
 			"detaillabelbitcoinaddress": "Zeitcoin adresa:",
 			"detaillabelbitcoinaddresscomp": "Komprimovaná Zeitcoin adresa:",
 			"detaillabelpublickey": "Veřejný klíč (130 znaků [0-9A-F]):",
 			"detaillabelpublickeycomp": "Komprimovaný veřejný klíč (66 znaků [0-9A-F]):",
-			"detaillabelprivwif": "Soukromý klíč WIF  <br />51 znaků v base58, začíná '5'",
+			"detaillabelprivwif": "Soukromý klíč WIF  <br />51 znaků v base58, začíná",
 			"detaillabelprivwifcomp": "Komprimovaný soukromý klíč WIF <br />52 znaků v base58, začíná",
-			"detailcompwifprefix": "'K' nebo 'L'",
+			"detailcompwifprefix": "'T'",
 			"detaillabelprivhex": "Soukromý klíč v hexadecimálním formátů (64 znaků [0-9A-F]):",
 			"detaillabelprivb64": "Soukromý klíč v base64 (44 znaků):",
 			"detaillabelprivmini": "Soukromý klíč v mini formátů (22, 26 nebo 30 znaků, začíná 'S'):",
@@ -7952,10 +7987,10 @@ ninja.wallets.paperwallet = {
 		var image;
 		if (ninja.wallets.paperwallet.encrypt) {
 			keyelement = 'btcencryptedkey'
-			image = './zeit_paper.jpg';
+			image = './paper.jpg';
 		}
 		else {
-			image = './zeit_paper.jpg';
+			image = './paper.jpg';
 		}
 
 		var walletHtml =
@@ -8083,8 +8118,8 @@ ninja.wallets.bulkwallet = {
 			bulkWallet.csv.push((bulkWallet.csvRowLimit - bulkWallet.csvRowsRemaining + bulkWallet.csvStartIndex)
 								+ ",\"" + key.getBitcoinAddress() + "\",\"" + key.toString("wif")
 			//+	"\",\"" + key.toString("wifcomp")    // uncomment these lines to add different private key formats to the CSV
-			//+ "\",\"" + key.getBitcoinHexFormat() 
-			//+ "\",\"" + key.toString("base64") 
+			//+ "\",\"" + key.getBitcoinHexFormat()
+			//+ "\",\"" + key.toString("base64")
 								+ "\"");
 
 			document.getElementById("bulktextarea").value = ninja.translator.get("bulkgeneratingaddresses") + bulkWallet.csvRowsRemaining;
@@ -8233,7 +8268,7 @@ ninja.wallets.vanitywallet = {
 				privateKeyWif = ninja.translator.get("vanityprivatekeyonlyavailable");
 				var pubKeyHex = (ninja.publicKey.isPublicKeyHexFormat(input1KeyString)) ? input1KeyString : input2KeyString;
 				var ecKey = (ninja.privateKey.isPrivateKey(input1KeyString)) ? new Bitcoin.ECKey(input1KeyString) : new Bitcoin.ECKey(input2KeyString);
-				// add 
+				// add
 				if (document.getElementById("vanityradioadd").checked) {
 					var pubKeyCombined = ninja.publicKey.getByteArrayFromAdding(pubKeyHex, ecKey.getPubKeyHex());
 				}
@@ -8899,7 +8934,7 @@ ninja.wallets.detailwallet = {
 		},
 
 		asynchronousTests: {
-			//https://en.bitcoin.it/wiki/BIP_0038
+			///web/20141031203701/https://en.bitcoin.it/wiki/BIP_0038
 			testBip38: function (done) {
 				var tests = [
 				//No compression, no EC multiply
@@ -9050,8 +9085,8 @@ if (ninja.getQueryString()["testnet"] == "true" || ninja.getQueryString()["testn
 	document.getElementById("testnet").style.display = "block";
 	document.getElementById("detailwifprefix").innerHTML = "'9'";
 	document.getElementById("detailcompwifprefix").innerHTML = "'c'";
-	Bitcoin.Address.networkVersion = 0x6F; // testnet
-	Bitcoin.ECKey.privateKeyPrefix = 0xEF; // testnet
+	Bitcoin.Address.networkVersion = 51; // testnet
+	Bitcoin.ECKey.privateKeyPrefix = 179; // testnet
 	ninja.testnetMode = true;
 }
 if (ninja.getQueryString()["showseedpool"] == "true" || ninja.getQueryString()["showseedpool"] == "1") {
